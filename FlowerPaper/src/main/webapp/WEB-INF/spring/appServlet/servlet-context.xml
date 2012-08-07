@@ -101,8 +101,7 @@
 	        <!-- properties파일의 이름을 등록한다.
 	                 등록되 있지 않을 시에 디폴트로 message.properties파일을 찾는다.-->
 <!-- 	         <beans:value>/WEB-INF/properties/message-user</beans:value> -->
-	         <beans:value>net.changwoo.x1wins.properties.message-user</beans:value>
-<!-- 	         <beans:value>classpath:net/changwoo/app/properties/skin</beans:value> -->
+	         <beans:value>net.changwoo.app.properties.message-user</beans:value>
 	      </beans:list>
 	   </beans:property>
 	</beans:bean>

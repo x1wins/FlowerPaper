@@ -11,7 +11,7 @@
 
 	<!-- property -->
 	<context:property-placeholder
-		location="classpath:net/changwoo/app/properties/jdbc.properties" />
+		location="classpath:net/changwoo/x1wins/properties/jdbc.properties" />
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">

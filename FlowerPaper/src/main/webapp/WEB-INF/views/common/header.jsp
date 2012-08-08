@@ -30,7 +30,6 @@
 		<ul>
 			
 			<li <c:if test="${menu=='index'}">id="active"</c:if> ><a href="<c:url value="/index"/>"><spring:message code="home"></spring:message></a></li>
-			<li <c:if test="${menu=='portfolio'}">id="active"</c:if> ><a href="<c:url value="/portfolio/list"/>"><spring:message code="portfolio"/></a></li>
 			<li <c:if test="${menu=='bbs'}">id="active"</c:if> ><a href="<c:url value="/bbs/1/list/1"/>"><spring:message code="bbs"/></a></li>
 			
 			<c:choose>

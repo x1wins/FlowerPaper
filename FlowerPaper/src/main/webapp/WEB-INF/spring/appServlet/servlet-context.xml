@@ -21,7 +21,18 @@
 	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
 	<mvc:default-servlet-handler></mvc:default-servlet-handler>
 
-	<context:component-scan base-package="net.changwoo.app" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+<!-- 	<beans:bean -->
+<!-- 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 		<beans:property name="prefix" value="/WEB-INF/views/" /> -->
+<!-- 		<beans:property name="suffix" value=".jsp" /> -->
+<!-- 		<beans:property name="contentType" value="text/html; charset=UTF-8"/> -->
+<!-- 	</beans:bean> -->
+
+	<context:component-scan base-package="net.changwoo.x1wins" />
+
 
 	<!-- tiles 2.2.2 -->
 	<beans:bean id="tilesConfigurer"
@@ -66,6 +77,15 @@
         </beans:property>
     </beans:bean>
  
+<!--     tiles2 layout config -->
+<!--     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"> -->
+<!--         <property name="definitions"> -->
+<!--             <list> -->
+<!--                 <value>classpath:/tiles2/tiles*.xml</value> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
+ 
     <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
     	<beans:property name="order" value="0"></beans:property>
     </beans:bean>
@@ -87,6 +107,11 @@
 
 	
 	<!-- Configure the multipart resolver -->
+<!--     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+<!--         one of the properties available; the maximum file size in bytes -->
+<!--         <beans:property name="maxUploadSize" value="100000"/> -->
+<!--     </beans:bean> -->
+
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize">
 			<beans:value>10000000</beans:value>
@@ -101,11 +126,39 @@
 	        <!-- properties파일의 이름을 등록한다.
 	                 등록되 있지 않을 시에 디폴트로 message.properties파일을 찾는다.-->
 <!-- 	         <beans:value>/WEB-INF/properties/message-user</beans:value> -->
-	         <beans:value>net.changwoo.app.properties.message-user</beans:value>
+	         <beans:value>net.changwoo.x1wins.properties.message-user</beans:value>
 	      </beans:list>
 	   </beans:property>
 	</beans:bean>
 
+
+<!-- 	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"> -->
+<!-- 		<beans:property name="defaultLocale" value="en" /> -->
+<!-- 	</beans:bean> -->
+	
+<!-- 	<beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> -->
+<!--          <beans:property name="paramName" value="ln" /> -->
+<!-- 	</beans:bean> -->
+	
+<!-- 	<beans:bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" > -->
+<!--        <beans:property name="interceptors"> -->
+<!--              <beans:list> -->
+<!--                   <beans:ref bean="localeChangeInterceptor" /> -->
+<!--              </beans:list> -->
+<!--        </beans:property> -->
+<!-- 	</beans:bean> -->
+	
+
+	<!-- multi language -->
+<!-- 	<bean id="messageSource" -->
+<!-- 		class="org.springframework.context.support.ResourceBundleMessageSource"> -->
+<!-- 		<property name="basenames"> -->
+<!-- 			<list> -->
+<!-- 				<value>messages.default -->
+<!-- 				</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 	
 	<mvc:interceptors>

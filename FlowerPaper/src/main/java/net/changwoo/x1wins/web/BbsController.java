@@ -1,5 +1,6 @@
 package net.changwoo.x1wins.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -13,10 +14,15 @@ import net.changwoo.x1wins.entity.Reply;
 import net.changwoo.x1wins.service.BbsService;
 import net.changwoo.x1wins.service.FileService;
 import net.changwoo.x1wins.service.ReplyService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -207,6 +213,71 @@ public class BbsController {
     	
         return "bbs/list.tiles";
     }
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public @ResponseBody
+	ResponseEntity<String> TEST() {
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.add("1");
+		jsonArray.add("2");
+		for (Object name : jsonArray) {
+			System.out.println(name + "しいぉ123");
+		}
+		JSONObject result = new JSONObject();
+		result.put("list", jsonArray);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstname", "ぞ");
+		map.put("secondname", "しぉぞし");
+		result.put("map", map);
+
+		// return JSONObject.fromObject(result).toString();
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+		return new ResponseEntity<String>(JSONObject.fromObject(result)
+				.toString(), responseHeaders, HttpStatus.CREATED);
+
+	}
+	
+	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	public @ResponseBody
+	String TEST2(Map model) {
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.add("1");
+		jsonArray.add("2");
+		for (Object name : jsonArray) {
+			System.out.println(name + "しいぉ123");
+		}
+		model.put("list", jsonArray);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("firstname", "ぞ");
+		map.put("secondname", "しぉぞし");
+		model.put("map", map);
+
+		return "jsonView";
+	}
+	
+    @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json3", method = RequestMethod.GET)
+	public @ResponseBody
+	ResponseEntity<String> TEST3(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
+		
+    	
+		try {
+			bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		// return JSONObject.fromObject(result).toString();
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+		return new ResponseEntity<String>(JSONObject.fromObject(model)
+				.toString(), responseHeaders, HttpStatus.CREATED);
+
+	}
     
     @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json", method = RequestMethod.GET)
     public String showListJson(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {

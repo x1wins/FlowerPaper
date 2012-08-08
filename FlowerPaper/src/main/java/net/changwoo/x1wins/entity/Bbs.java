@@ -1,8 +1,7 @@
 package net.changwoo.x1wins.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,38 +60,20 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-    
-////    @Column(name="bbsnum", nullable = false)
-////    private int bbsnum;
-//    @ManyToOne//(cascade = CascadeType.ALL)
-////    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-//    @JoinTable(name = "bbs_user", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "userid") })
-//    private User user;
-//
-//	public User getUser() {
-//		return user;
-//	}
-//
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-
 	@ManyToOne//(cascade = CascadeType.ALL)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
     private Config config;
 	
-	@OneToMany
-	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
-	private Set<Reply> replys = new HashSet<Reply>(0);
+	@OneToMany(mappedBy ="bbs")
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	private List<Reply> replys;
     
-	public Set<Reply> getReplys() {
+	public List<Reply> getReplys() {
 		return replys;
 	}
 
-
-	public void setReplys(Set<Reply> replys) {
+	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
 

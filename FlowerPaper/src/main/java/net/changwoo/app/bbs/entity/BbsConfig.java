@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="config")
-public class Config {
+@Table(name="bbs_config")
+public class BbsConfig {
 	
-	public Config(){
+	public BbsConfig(){
 		listTypeNum = 1;
 		readFrom = 0;
 		readUntil = 0;
@@ -32,25 +32,25 @@ public class Config {
 	@Column(name="bbsname", nullable = false, length = 100)
 	private String bbsname;
 
-	@Column(name="listTypeNum", nullable = false , columnDefinition = "int default 1")
+	@Column(name="list_type_num", nullable = false , columnDefinition = "int default 1")
     private int listTypeNum;
 	
-	@Column(name="readFrom", nullable = false, columnDefinition = "int default 0")
+	@Column(name="read_from", nullable = false, columnDefinition = "int default 0")
 	private int readFrom;
 	
-	@Column(name="readUntil", nullable = false, columnDefinition = "int default 0")
+	@Column(name="read_until", nullable = false, columnDefinition = "int default 0")
 	private int readUntil;
 	
-	@Column(name="writeFrom", nullable = false, columnDefinition = "int default 0")
+	@Column(name="write_from", nullable = false, columnDefinition = "int default 0")
 	private int writeFrom;
 	
-	@Column(name="writeUntil", nullable = false, columnDefinition = "int default 0")
+	@Column(name="write_until", nullable = false, columnDefinition = "int default 0")
 	private int writeUntil;
 	
-	@Column(name="publicYn", nullable = false, columnDefinition = "int default 1")
+	@Column(name="public_yn", nullable = false, columnDefinition = "int default 1")
 	private int publicYn;
 	
-	@Column(name="replyYn", nullable = false, columnDefinition = "int default 1")
+	@Column(name="reply_yn", nullable = false, columnDefinition = "int default 1")
 	private int replyYn;
 	
 	public int getReplyYn() {

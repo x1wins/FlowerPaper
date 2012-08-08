@@ -61,27 +61,10 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-    
-////    @Column(name="bbsnum", nullable = false)
-////    private int bbsnum;
-//    @ManyToOne//(cascade = CascadeType.ALL)
-////    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-//    @JoinTable(name = "bbs_user", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "userid") })
-//    private User user;
-//
-//	public User getUser() {
-//		return user;
-//	}
-//
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@ManyToOne
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
-    private Config config;
+    private BbsConfig config;
 	
 	@OneToMany
 	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
@@ -117,7 +100,7 @@ public class Bbs {
 //	}
 
 
-	public Config getConfig() {
+	public BbsConfig getConfig() {
 		return config;
 	}
 
@@ -132,7 +115,7 @@ public class Bbs {
 	}
 
 
-	public void setConfig(Config config) {
+	public void setConfig(BbsConfig config) {
 		this.config = config;
 	}
 

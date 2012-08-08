@@ -9,21 +9,31 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+
+	<!-- hibernate log -->
+	<category name="org.hibernate.SQL">
+		<priority value="TRACE" />
+	</category>
+
+	<category name="org.hibernate.type">
+		<priority value="TRACE" />
+	</category>
+
+
 	<!-- Application Loggers -->
-	<logger name="net.changwoo.app">
-		<level value="info" />
+	<logger name="net.changwoo.x1wins">
+		<level value="debug" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>
@@ -37,5 +47,5 @@
 		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
-	
+
 </log4j:configuration>

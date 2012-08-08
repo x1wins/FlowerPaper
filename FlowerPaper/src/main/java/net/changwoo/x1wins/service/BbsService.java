@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -34,7 +35,7 @@ public class BbsService {
 	@Autowired
 	private UserDao userDao;
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveBbs(Bbs bbs, int bbsnum, HttpServletRequest request) throws Exception {
 
 		Config config = configDao.findAllByProperty("bbsnum", bbsnum).get(0);
@@ -57,7 +58,7 @@ public class BbsService {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void updateBbs(Bbs bbs, int bbsnum, HttpServletRequest request) throws Exception {
 		
 		int count = bbsDao.findById(bbs.getNum()).getCount();
@@ -66,7 +67,7 @@ public class BbsService {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(int bbsnum, int num)throws Exception {
 
 		Bbs bbs = bbsDao.findById(num);
@@ -78,7 +79,7 @@ public class BbsService {
 		bbsDao.delete(bbs);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void findListAndPaging(int bbsnum, int pageNum, int perPage, Map model, HttpServletRequest request)throws Exception {
 
 		//bbs list
@@ -145,7 +146,7 @@ public class BbsService {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public Bbs findDetail(int num)throws Exception {
 		
 		Bbs bbs = bbsDao.findById(num);
@@ -158,7 +159,7 @@ public class BbsService {
 		
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validSignin(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
@@ -189,7 +190,7 @@ public class BbsService {
 		return resultBoolean;
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validOwn(int num, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
@@ -224,8 +225,7 @@ public class BbsService {
 		return resultBoolean;
 	}
 	
-	@Transactional
-//	public boolean validRead(int bbsnum, HttpServletRequest request, BindingResult result){
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validRead(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
@@ -303,8 +303,7 @@ public class BbsService {
 		
 	}
 	
-	@Transactional
-//	public boolean validRead(int bbsnum, HttpServletRequest request, BindingResult result){
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validWrite(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;

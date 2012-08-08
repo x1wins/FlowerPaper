@@ -28,7 +28,6 @@ public class Bbs {
 		this.status = 1;
 		this.regdate = new Date();
 		this.count = 0;
-//		this.file = new HashSet<File>(0);
 		
 	}
 	
@@ -66,7 +65,6 @@ public class Bbs {
     private Config config;
 	
 	@OneToMany(mappedBy ="bbs")
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private List<Reply> replys;
     
 	public List<Reply> getReplys() {
@@ -86,16 +84,6 @@ public class Bbs {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-//    private Set<Config> config = new HashSet<Config>(0);
-    
-//	public Set<Config> getConfig() {
-//		return config;
-//	}
-//
-//
-//	public void setConfig(Set<Config> config) {
-//		this.config = config;
-//	}
 
 
 	public Config getConfig() {
@@ -116,16 +104,6 @@ public class Bbs {
 	public void setConfig(Config config) {
 		this.config = config;
 	}
-
-
-//	public int getBbsnum() {
-//		return bbsnum;
-//	}
-//
-//
-//	public void setBbsnum(int bbsnum) {
-//		this.bbsnum = bbsnum;
-//	}
 
 
 	public int getNum() {

@@ -4,10 +4,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.changwoo.app.bbs.dao.BbsDao;
 import net.changwoo.app.bbs.entity.Bbs;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
 public class BbsServiceImpl implements IBbsService {
 
+	@Autowired
+	private BbsDao bbsDao;
+	
 	public void saveBbs(Bbs bbs, int bbsnum, HttpServletRequest request)
 			throws Exception {
 		// TODO Auto-generated method stub

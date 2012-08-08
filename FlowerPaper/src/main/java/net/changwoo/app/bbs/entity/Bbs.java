@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,130 +65,90 @@ public class Bbs {
 	@ManyToOne
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
-    private BbsConfig config;
+    private BbsConfig bbsConfig;
 	
-	@OneToMany
-	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
-	private Set<Reply> replys = new HashSet<Reply>(0);
-    
-	public Set<Reply> getReplys() {
-		return replys;
-	}
-
-
-	public void setReplys(Set<Reply> replys) {
-		this.replys = replys;
-	}
-
-
-	public String getIp() {
-		return ip;
-	}
-	
-	
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-//    private Set<Config> config = new HashSet<Config>(0);
-    
-//	public Set<Config> getConfig() {
-//		return config;
-//	}
-//
-//
-//	public void setConfig(Set<Config> config) {
-//		this.config = config;
-//	}
-
-
-	public BbsConfig getConfig() {
-		return config;
-	}
-
-
-	public int getCount() {
-		return count;
-	}
-
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-
-	public void setConfig(BbsConfig config) {
-		this.config = config;
-	}
-
-
-//	public int getBbsnum() {
-//		return bbsnum;
-//	}
-//
-//
-//	public void setBbsnum(int bbsnum) {
-//		this.bbsnum = bbsnum;
-//	}
-
+	@OneToMany(mappedBy="bbs", cascade=CascadeType.ALL)
+//	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
+	private Set<BbsReply> bbsReplys = new HashSet<BbsReply>(0);
 
 	public int getNum() {
 		return num;
 	}
 
-
 	public void setNum(int num) {
 		this.num = num;
 	}
-
 
 	public String getUserid() {
 		return userid;
 	}
 
-
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-
 
 	public int getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(int status) {
 		this.status = status;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 	public Date getRegdate() {
 		return regdate;
 	}
 
-
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-
 
 	public String getSubject() {
 		return subject;
 	}
 
-
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
 
 	public String getContent() {
 		return content;
 	}
 
-
 	public void setContent(String content) {
 		this.content = content;
 	}
 
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public BbsConfig getBbsConfig() {
+		return bbsConfig;
+	}
+
+	public void setBbsConfig(BbsConfig bbsConfig) {
+		this.bbsConfig = bbsConfig;
+	}
+
+	public Set<BbsReply> getBbsReplys() {
+		return bbsReplys;
+	}
+
+	public void setBbsReplys(Set<BbsReply> bbsReplys) {
+		this.bbsReplys = bbsReplys;
+	}
 	
 }

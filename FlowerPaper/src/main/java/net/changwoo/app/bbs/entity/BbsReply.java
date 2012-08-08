@@ -19,10 +19,10 @@ import net.changwoo.app.user.entity.User;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="reply")
-public class Reply {
+@Table(name="bbs_reply")
+public class BbsReply {
 	
-	public Reply(){
+	public BbsReply(){
 		this.status = 1;
 		this.regdate = new Date();
 	}

@@ -23,7 +23,7 @@
   
   
   <!-- Spring Session Handler -->
-    <filter>
+ <!--    <filter>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <filter-class>
             org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
@@ -37,6 +37,6 @@
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
     
 </web-app>

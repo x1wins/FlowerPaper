@@ -83,7 +83,8 @@ public class Bbs {
 //	}
 	
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name="num")
     @IndexColumn(name="idx")
 	private List<Reply> replys;

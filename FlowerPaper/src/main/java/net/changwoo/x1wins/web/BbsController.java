@@ -8,9 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 
 import net.changwoo.x1wins.entity.Bbs;
 import net.changwoo.x1wins.entity.Reply;
@@ -56,22 +53,22 @@ public class BbsController {
     @Autowired
     private ReplyService replyService;
 
-	@GET
-	@Path("/test.json2")
-	@Produces("application/json")
-    public Bbs showListJson2() {
-    	
-		Bbs detail = null;
-    	try {
-    		
-    		detail = bbsService.findDetail(1);
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.toString());
-    	}
-    	
-    	return detail;
-    }
+//	@GET
+//	@Path("/test.json2")
+//	@Produces("application/json")
+//    public Bbs showListJson2() {
+//    	
+//		Bbs detail = null;
+//    	try {
+//    		
+//    		detail = bbsService.findDetail(1);
+//    		
+//    	} catch (Exception e) {
+//    		logger.debug(e.toString());
+//    	}
+//    	
+//    	return detail;
+//    }
 	
     @RequestMapping(value = "/{bbsnum}/form", method = RequestMethod.GET)
     public String showForm(@PathVariable("bbsnum") int bbsnum, Map model, HttpServletRequest request) {
@@ -260,31 +257,25 @@ public class BbsController {
 	}
 	
 	@RequestMapping(value = "/test2", method = RequestMethod.GET)
-	public @ResponseBody
-	String TEST2(Map model) {
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.add("1");
-		jsonArray.add("2");
-		for (Object name : jsonArray) {
-			System.out.println(name + "しいぉ123");
+	public @ResponseBody String TEST2(Bbs bbs) {
+		
+		try {
+			bbs = bbsService.findDetail(1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		model.put("list", jsonArray);
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("firstname", "ぞ");
-		map.put("secondname", "しぉぞし");
-		model.put("map", map);
 
 		return "jsonView";
 	}
 	
-    @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json3", method = RequestMethod.GET)
+    @RequestMapping(value = "/test3", method = RequestMethod.GET)
 	public @ResponseBody
-	ResponseEntity<String> TEST3(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
+	ResponseEntity<String> TEST3() {
 		
-    	
-		try {
-			bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
+    	Bbs bbs = null;
+    	try {
+			bbs = bbsService.findDetail(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -294,7 +285,7 @@ public class BbsController {
 		// return JSONObject.fromObject(result).toString();
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-		return new ResponseEntity<String>(JSONObject.fromObject(model)
+		return new ResponseEntity<String>(JSONObject.fromObject(bbs)
 				.toString(), responseHeaders, HttpStatus.CREATED);
 
 	}

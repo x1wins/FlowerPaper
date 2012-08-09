@@ -48,17 +48,17 @@ public class Reply {
     @JoinTable(name = "reply_user", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
     private User user;
     
-    @ManyToOne
-	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
-    private Bbs bbs;
-    
-	public Bbs getBbs() {
-		return bbs;
-	}
-
-	public void setBbs(Bbs bbs) {
-		this.bbs = bbs;
-	}
+//    @ManyToOne
+//	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
+//    private Bbs bbs;
+//    
+//	public Bbs getBbs() {
+//		return bbs;
+//	}
+//
+//	public void setBbs(Bbs bbs) {
+//		this.bbs = bbs;
+//	}
 
 	public int getRnum() {
 		return rnum;

@@ -21,7 +21,7 @@ public class IndexController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String doSignInGetMethod(Locale locale, Map model) {
         
-    	logger.debug("this.toString() "+this.toString());
+//    	logger.debug("this.toString() "+this.toString());
     	model.put("menu", "index");
         return "index.tiles";
     }

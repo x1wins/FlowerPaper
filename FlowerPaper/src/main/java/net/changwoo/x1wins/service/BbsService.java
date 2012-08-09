@@ -149,6 +149,8 @@ public class BbsService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public Bbs findDetail(int num)throws Exception {
 		
+		logger.debug("findDetail????");
+		
 		Bbs bbs = bbsDao.findById(num);
 		int count = bbs.getCount();
 		count++;

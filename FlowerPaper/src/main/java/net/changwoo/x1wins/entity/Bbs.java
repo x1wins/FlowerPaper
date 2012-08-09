@@ -64,16 +64,16 @@ public class Bbs {
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
     private Config config;
 	
-	@OneToMany(mappedBy ="bbs")
-	private List<Reply> replys;
-    
-	public List<Reply> getReplys() {
-		return replys;
-	}
-
-	public void setReplys(List<Reply> replys) {
-		this.replys = replys;
-	}
+//	@OneToMany(mappedBy ="bbs")
+//	private List<Reply> replys;
+//    
+//	public List<Reply> getReplys() {
+//		return replys;
+//	}
+//
+//	public void setReplys(List<Reply> replys) {
+//		this.replys = replys;
+//	}
 
 
 	public String getIp() {

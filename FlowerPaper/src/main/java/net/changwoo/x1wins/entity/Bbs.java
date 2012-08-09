@@ -65,15 +65,18 @@ public class Bbs {
     private Config config;
 	
 //	@OneToMany(mappedBy ="bbs")
-//	private List<Reply> replys;
-//    
-//	public List<Reply> getReplys() {
-//		return replys;
-//	}
-//
-//	public void setReplys(List<Reply> replys) {
-//		this.replys = replys;
-//	}
+	@OneToMany
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
+	private List<Reply> replys;
+    
+	public List<Reply> getReplys() {
+		return replys;
+	}
+
+	public void setReplys(List<Reply> replys) {
+		this.replys = replys;
+	}
 
 
 	public String getIp() {

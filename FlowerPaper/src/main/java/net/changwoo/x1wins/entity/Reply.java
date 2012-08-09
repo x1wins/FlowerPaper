@@ -43,10 +43,11 @@ public class Reply {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-    @ManyToOne//(cascade = CascadeType.ALL)
+//    @ManyToOne//(cascade = CascadeType.ALL)
 //    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "reply_user", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
-    private User user;
+//	@JoinColumn(name = "reply_user", nullable = false)
+//    @JoinTable(name = "reply_user", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
+//    private User user;
     
 //    @ManyToOne
 //	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
@@ -100,12 +101,12 @@ public class Reply {
 		this.ip = ip;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 }

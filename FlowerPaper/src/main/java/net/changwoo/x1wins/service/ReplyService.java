@@ -62,8 +62,8 @@ public class ReplyService {
 		}
 		
 		reply.setIp(request.getRemoteAddr());
-		reply.setUser(user);
-		reply.setBbs(bbs);
+//		reply.setUser(user);
+//		reply.setBbs(bbs);
 		
 		replyDao.saveOrUpdate(reply);
 		
@@ -132,9 +132,9 @@ public class ReplyService {
 			logger.debug("login y ");
 			Reply reply = replyDao.findById(num);
 			
-			String replyUserid = reply.getUser().getUserid();
-			String sessionUserid = session.getAttribute("userid").toString();
-			resultBoolean = replyUserid.equals(sessionUserid);
+//			String replyUserid = reply.getUser().getUserid();
+//			String sessionUserid = session.getAttribute("userid").toString();
+//			resultBoolean = replyUserid.equals(sessionUserid);
 			
 			//userid
 //			String userid = session.getAttribute("userid").toString();

@@ -155,7 +155,8 @@ public class BbsService {
 		int count = bbs.getCount();
 		count++;
 		bbs.setCount(count);
-		bbsDao.saveOrUpdate(bbs);
+//		bbsDao.saveOrUpdate(bbs);
+		
 		
 		return bbs;
 		

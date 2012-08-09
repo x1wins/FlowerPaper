@@ -60,6 +60,18 @@ public class Reply {
 //	public void setBbs(Bbs bbs) {
 //		this.bbs = bbs;
 //	}
+    
+    @ManyToOne
+	@JoinColumn(name = "num", insertable = false, updatable = false, nullable = false)
+    private Bbs bbs;
+      
+  	public Bbs getBbs() {
+  		return bbs;
+  	}
+
+  	public void setBbs(Bbs bbs) {
+  		this.bbs = bbs;
+  	}
 
 	public int getRnum() {
 		return rnum;

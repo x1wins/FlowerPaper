@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="bbs")
@@ -59,15 +63,29 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
     private Config config;
 	
-//	@OneToMany(mappedBy ="bbs")
+////	@OneToMany(mappedBy ="bbs")
+//	@OneToMany(fetch = FetchType.LAZY)
+////    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
+//	private List<Reply> replys;
+//    
+//	public List<Reply> getReplys() {
+//		return replys;
+//	}
+//
+//	public void setReplys(List<Reply> replys) {
+//		this.replys = replys;
+//	}
+	
+	
 	@OneToMany
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
+    @JoinColumn(name="num")
+    @IndexColumn(name="idx")
 	private List<Reply> replys;
     
 	public List<Reply> getReplys() {
@@ -77,7 +95,6 @@ public class Bbs {
 	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
-
 
 	public String getIp() {
 		return ip;

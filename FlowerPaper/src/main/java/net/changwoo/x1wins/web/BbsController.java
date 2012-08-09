@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import net.changwoo.x1wins.entity.Bbs;
 import net.changwoo.x1wins.entity.Reply;
@@ -31,7 +34,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
- 
+
+
 /**
  * Handles requests for the application home page.
  */
@@ -51,8 +55,24 @@ public class BbsController {
     private FileService fileService;
     @Autowired
     private ReplyService replyService;
-    
-    
+
+	@GET
+	@Path("/test.json2")
+	@Produces("application/json")
+    public Bbs showListJson2() {
+    	
+		Bbs detail = null;
+    	try {
+    		
+    		detail = bbsService.findDetail(1);
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.toString());
+    	}
+    	
+    	return detail;
+    }
+	
     @RequestMapping(value = "/{bbsnum}/form", method = RequestMethod.GET)
     public String showForm(@PathVariable("bbsnum") int bbsnum, Map model, HttpServletRequest request) {
     	

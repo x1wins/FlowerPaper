@@ -16,7 +16,28 @@
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 		<org.apache.tiles-version>2.2.2</org.apache.tiles-version>
 	</properties>
+	
+	<repositories>
+	<repository>
+		<id>JBoss repository</id>
+		<url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+	</repository>
+  </repositories>
+ 
+	
 	<dependencies>
+	
+		<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-jaxrs</artifactId>
+		<version>2.2.1.GA</version>
+	</dependency>
+ 
+	<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-jackson-provider</artifactId>
+		<version>2.2.1.GA</version>
+	</dependency>
 
 	<!-- cw -->
 		<!-- <dependency> -->

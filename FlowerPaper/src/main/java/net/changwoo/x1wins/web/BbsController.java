@@ -256,26 +256,28 @@ public class BbsController {
 
 	}
 	
-	@RequestMapping(value = "/test2", method = RequestMethod.GET)
-	public @ResponseBody String TEST2(Bbs bbs) {
+	@RequestMapping(value = "/test2/{num}", method = RequestMethod.GET)
+	public @ResponseBody String TEST2(@PathVariable("num") int num,Map model) {
 		
+		Bbs bbs = null;
 		try {
-			bbs = bbsService.findDetail(1);
+			bbs = bbsService.findDetail(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		model.put("bbs", bbs);
 
 		return "jsonView";
 	}
 	
-    @RequestMapping(value = "/test3", method = RequestMethod.GET)
+    @RequestMapping(value = "/test3/{num}", method = RequestMethod.GET)
 	public @ResponseBody
-	ResponseEntity<String> TEST3() {
+	ResponseEntity<String> TEST3(@PathVariable("num") int num) {
 		
     	Bbs bbs = null;
     	try {
-			bbs = bbsService.findDetail(1);
+			bbs = bbsService.findDetail(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

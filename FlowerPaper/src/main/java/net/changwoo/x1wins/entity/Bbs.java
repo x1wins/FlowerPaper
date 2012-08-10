@@ -17,12 +17,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
 
+@JsonAutoDetect
 @Entity
 @Table(name="bbs")
 public class Bbs {
@@ -63,7 +64,7 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-	@ManyToOne(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
     private Config config;
@@ -83,10 +84,11 @@ public class Bbs {
 //	}
 	
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name="num")
     @IndexColumn(name="idx")
+	@JsonIgnore
 	private List<Reply> replys;
     
 	public List<Reply> getReplys() {

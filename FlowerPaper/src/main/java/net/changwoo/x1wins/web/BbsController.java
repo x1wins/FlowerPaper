@@ -339,9 +339,8 @@ public class BbsController {
     	return "bbs/detail.tiles";
     }
     
-    @RequestMapping(value = "/{bbsnum}/reply", method = RequestMethod.POST)
-	public @ResponseBody String processReply(@PathVariable("bbsnum") int bbsnum, @Valid Reply reply, BindingResult result,
-			Map model, HttpServletRequest request) {
+    @RequestMapping(value = "/detail/{bbsnum}/reply/add", method = RequestMethod.POST)
+	public @ResponseBody String addReply(@PathVariable("bbsnum") int bbsnum, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
 
     	String message ="";
     	model.put("menu", menu);

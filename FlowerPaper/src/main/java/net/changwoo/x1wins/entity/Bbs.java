@@ -23,7 +23,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.NotEmpty;
 
-@JsonAutoDetect
 @Entity
 @Table(name="bbs")
 public class Bbs {
@@ -88,7 +87,6 @@ public class Bbs {
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name="num")
     @IndexColumn(name="idx")
-	@JsonIgnore
 	private List<Reply> replys;
     
 	public List<Reply> getReplys() {

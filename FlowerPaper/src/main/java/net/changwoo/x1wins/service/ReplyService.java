@@ -62,6 +62,7 @@ public class ReplyService {
 		}
 		
 		reply.setIp(request.getRemoteAddr());
+		reply.setUserid(userid);
 //		reply.setUser(user);
 //		reply.setBbs(bbs);
 		

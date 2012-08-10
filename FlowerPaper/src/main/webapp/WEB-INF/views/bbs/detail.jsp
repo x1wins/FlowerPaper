@@ -93,8 +93,14 @@
 
 
 <div class="memo">
-<input type="text" id="content">
+
 <input type="button" value="Add Users" onclick="doAjaxPost('<c:out value="${bbsnum}"/>')">
+
+<form:form method="post" action="form" commandName="bbs">
+	<form:input path="content" />
+	<input type="submit" value="Submit" />
+</form:form>
+
 <div id="info"></div>
 </div>
 <div class="memo" id="71">

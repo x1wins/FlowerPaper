@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.hibernate.validator.constraints.NotEmpty;
 
-@JsonAutoDetect
 @Entity
 @Table(name="reply")
 public class Reply {
@@ -36,6 +35,9 @@ public class Reply {
     
     @Temporal(TemporalType.TIMESTAMP) 
     private Date regdate;
+    
+    @Column(name="userid", nullable = false, length = 100)
+    private String userid;
 
     @NotEmpty
     @Column(name = "content", nullable = false, length = 9999)
@@ -63,16 +65,8 @@ public class Reply {
 //	}
     
     @ManyToOne
-	@JoinColumn(name = "num", insertable = false, updatable = false, nullable = false)
+	@JoinColumn(name = "rnum", insertable = false, updatable = false, nullable = false)
     private Bbs bbs;
-      
-  	public Bbs getBbs() {
-  		return bbs;
-  	}
-
-  	public void setBbs(Bbs bbs) {
-  		this.bbs = bbs;
-  	}
 
 	public int getRnum() {
 		return rnum;
@@ -98,6 +92,14 @@ public class Reply {
 		this.regdate = regdate;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -114,12 +116,12 @@ public class Reply {
 		this.ip = ip;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public Bbs getBbs() {
+		return bbs;
+	}
 
+	public void setBbs(Bbs bbs) {
+		this.bbs = bbs;
+	}
+      
 }

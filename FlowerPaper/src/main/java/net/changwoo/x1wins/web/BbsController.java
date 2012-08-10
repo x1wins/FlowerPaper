@@ -329,6 +329,9 @@ public class BbsController {
     		model.put("bbsnum", bbsnum);
     		model.put("filelist", fileList);
     		
+    		Reply reply = new Reply();
+			model.put("reply", reply);
+    		
     	} catch (Exception e) {
     		logger.debug(e.toString());
     		model.put("message", e.toString());
@@ -339,8 +342,8 @@ public class BbsController {
     	return "bbs/detail.tiles";
     }
     
-    @RequestMapping(value = "/detail/{bbsnum}/reply/add", method = RequestMethod.POST)
-	public @ResponseBody String addReply(@PathVariable("bbsnum") int bbsnum, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
+    @RequestMapping(value = "/detail/{num}/reply/add", method = RequestMethod.POST)
+	public @ResponseBody String addReply(@PathVariable("num") int num, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
 
     	String message ="";
     	model.put("menu", menu);
@@ -351,7 +354,7 @@ public class BbsController {
 				message = "fail";
 			}
 			
-			replyService.saveReply(reply, bbsnum, request);
+			replyService.saveReply(reply, num, request);
 			
 
 		} catch (Exception e) {
@@ -363,6 +366,24 @@ public class BbsController {
 		
 		return message;
 	}
+    
+    //http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
+    @RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
+    public @ResponseBody JsonResponse addUser(@ModelAttribute(value="user") User user, BindingResult result ){
+            JsonResponse res = new JsonResponse();
+            ValidationUtils.rejectIfEmpty(result, "name", "Name can not be empty.");
+            ValidationUtils.rejectIfEmpty(result, "education", "Educatioan not be empty");
+            if(!result.hasErrors()){
+                    userList.add(user);
+                    res.setStatus("SUCCESS");
+                    res.setResult(userList);
+            }else{
+                    res.setStatus("FAIL");
+                    res.setResult(result.getAllErrors());
+            }
+
+            return res;
+    }
     
     @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
     @ResponseBody

@@ -368,22 +368,22 @@ public class BbsController {
 	}
     
     //http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
-    @RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
-    public @ResponseBody JsonResponse addUser(@ModelAttribute(value="user") User user, BindingResult result ){
-            JsonResponse res = new JsonResponse();
-            ValidationUtils.rejectIfEmpty(result, "name", "Name can not be empty.");
-            ValidationUtils.rejectIfEmpty(result, "education", "Educatioan not be empty");
-            if(!result.hasErrors()){
-                    userList.add(user);
-                    res.setStatus("SUCCESS");
-                    res.setResult(userList);
-            }else{
-                    res.setStatus("FAIL");
-                    res.setResult(result.getAllErrors());
-            }
-
-            return res;
-    }
+//    @RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
+//    public @ResponseBody JsonResponse addUser(@ModelAttribute(value="user") User user, BindingResult result ){
+//            JsonResponse res = new JsonResponse();
+//            ValidationUtils.rejectIfEmpty(result, "name", "Name can not be empty.");
+//            ValidationUtils.rejectIfEmpty(result, "education", "Educatioan not be empty");
+//            if(!result.hasErrors()){
+//                    userList.add(user);
+//                    res.setStatus("SUCCESS");
+//                    res.setResult(userList);
+//            }else{
+//                    res.setStatus("FAIL");
+//                    res.setResult(result.getAllErrors());
+//            }
+//
+//            return res;
+//    }
     
     @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
     @ResponseBody

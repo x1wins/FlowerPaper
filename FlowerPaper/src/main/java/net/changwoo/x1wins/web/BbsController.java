@@ -1,6 +1,5 @@
 package net.changwoo.x1wins.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -12,14 +11,12 @@ import javax.validation.Valid;
 
 import net.changwoo.x1wins.entity.Bbs;
 import net.changwoo.x1wins.entity.Reply;
+import net.changwoo.x1wins.entity.Response;
 import net.changwoo.x1wins.service.BbsService;
 import net.changwoo.x1wins.service.FileService;
 import net.changwoo.x1wins.service.ReplyService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
-import net.sf.json.JsonConfig;
-import net.sf.json.util.PropertyFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -321,27 +318,31 @@ public class BbsController {
     @RequestMapping(value = "/detail/{num}/reply/add", method = RequestMethod.POST)
 	public @ResponseBody String addReply(@PathVariable("num") int num, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
 
-    	String message ="";
+    	String status ="";
     	model.put("menu", menu);
 		try {
 			
 			logger.info(reply.getClass()+"result.getAllErrors()"+result.getAllErrors());
+			Response response = new Response();
 			if (result.hasErrors()) {
-				message = "fail";
+				status = "FAIL";
+				response.setResult(result);
 			}else{
+				status = "SUCCESS";
 				replyService.saveReply(reply, num, request);
+				response.setResult(reply);
 			}
-			
+			response.setStatus(status);
 			
 
 		} catch (Exception e) {
 			logger.debug(e.toString());
 			model.put("message", e.toString());
-			message = e.toString();
+			status = e.toString();
 //			return errorPage;
 		}
 		
-		return message;
+		return status;
 	}
     
     //http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/

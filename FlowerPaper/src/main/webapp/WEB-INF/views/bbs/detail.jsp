@@ -22,8 +22,12 @@
 			data : "content=" + content,
 			success : function(response) {
 				// we have the response
-				$('#info').html(response);
-				$('#content').val('');
+				if(response.status == "SUCCESS"){
+					$('#info').html(response);
+					$('#content').val('');
+				}else{
+					$('#info').html(response);
+				}
 			},
 			error : function(e) {
 				alert('Error: ' + e);

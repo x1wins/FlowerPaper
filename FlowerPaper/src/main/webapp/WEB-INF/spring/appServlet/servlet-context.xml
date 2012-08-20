@@ -89,8 +89,20 @@
     <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
     	<beans:property name="order" value="0"></beans:property>
     </beans:bean>
+    
+    <!-- ajax view JSON rendering -->
+<!--     <bean name="lenient" class="net.sf.json.util.CycleDetectionStrategy$LenientCycleDetectionStrategy"/> -->
+    
+<!--     <bean name="jsonConfig" class="net.sf.json.JsonConfig"> -->
+<!--        <property name="cycleDetectionStrategy" ref="lenient" /> -->
+<!--     </bean> -->
+    
+<!--     <bean name="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" > -->
+<!--        <property name="jsonConfig" ref="jsonConfig" /> -->
+<!--     </bean> -->
+    
 <!--     <beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/> -->
-    <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" />
+<!--     <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" /> -->
 <!--     <beans:bean id="xmlView" -->
 <!--         class="org.springframework.web.servlet.view.xml.MarshallingView"> -->
 <!--         <beans:property name="marshaller"> -->

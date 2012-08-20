@@ -1,5 +1,6 @@
 package net.changwoo.x1wins.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +17,9 @@ import net.changwoo.x1wins.service.FileService;
 import net.changwoo.x1wins.service.ReplyService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.PropertyFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -202,7 +206,7 @@ public class BbsController {
     
     
     @RequestMapping(value = "/{bbsnum}/list/{pagenum}", method = RequestMethod.GET)
-    public String showList(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
+    public String showBbsList(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
     	
     	model.put("menu", menu);
 		try {
@@ -231,7 +235,159 @@ public class BbsController {
         return "bbs/list.tiles";
     }
 
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json", method = RequestMethod.GET)
+    public String showBbsListJson(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
+    	
+    	/*
+    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('notice','admin',1);
+    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('free','admin',1);
+    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('portfolio','admin',2);
+    	 */
+    	
+		try {
+			
+			bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
+			
+		} catch (Exception e) {
+			logger.debug(e.toString());
+//			return errorPage;
+		}
+    	
+        return "jsonView";
+    }
+    
+    @RequestMapping(value = "/{bbsnum}/detail/{num}", method = RequestMethod.GET)
+    public String showBbsDetail(@PathVariable("bbsnum") int bbsnum, @PathVariable("num") int num, Locale locale, Map model, HttpServletRequest request) {
+    	
+    	model.put("menu", menu);
+    	Bbs detail;
+    	try {
+    		
+    		bbsService.validRead(bbsnum, request);
+    		
+    		detail = bbsService.findDetail(num);
+    		int snum = num;
+    		List fileList = fileService.findFileList(classname, bbsnum, snum, request);
+    		model.put("detail", detail);
+    		model.put("bbsnum", bbsnum);
+    		model.put("filelist", fileList);
+    		
+    		Reply reply = new Reply();
+			model.put("reply", reply);
+    		
+    	} catch (Exception e) {
+    		logger.debug(e.toString());
+    		model.put("message", e.toString());
+    		return errorPage;
+    	}
+    	
+    	
+    	return "bbs/detail.tiles";
+    }
+    
+    @RequestMapping(value = "/detail/{num}.json", method = RequestMethod.GET)
+   	public @ResponseBody
+   	ResponseEntity<String> showBbsDetailJson(@PathVariable("num") int num) {
+   		
+       	Bbs bbs = null;
+//       	JsonConfig config = new JsonConfig();
+//       	config.setJsonPropertyFilter(new PropertyFilter() {
+//       		public boolean apply(Object source, String name, Object value) {
+//       			if ("name".equals(name) || "description".equals(name)
+//       					|| "id".equals(name)) {
+//       				return false;
+//       			}
+//       			return true;
+//       		}
+//       	});
+       	try {
+       		
+       		
+   			bbs = bbsService.findDetail(num);
+   		} catch (Exception e) {
+   			// TODO Auto-generated catch block
+   			e.printStackTrace();
+   		}
+
+
+   		// return JSONObject.fromObject(result).toString();
+   		HttpHeaders responseHeaders = new HttpHeaders();
+   		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+   		return new ResponseEntity<String>(JSONObject.fromObject(bbs)
+   				.toString(), responseHeaders, HttpStatus.CREATED);
+
+   	}
+    
+    @RequestMapping(value = "/detail/{num}/reply/add", method = RequestMethod.POST)
+	public @ResponseBody String addReply(@PathVariable("num") int num, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
+
+    	String message ="";
+    	model.put("menu", menu);
+		try {
+			
+			logger.info(reply.getClass()+"result.getAllErrors()"+result.getAllErrors());
+			if (result.hasErrors()) {
+				message = "fail";
+			}else{
+				replyService.saveReply(reply, num, request);
+			}
+			
+			
+
+		} catch (Exception e) {
+			logger.debug(e.toString());
+			model.put("message", e.toString());
+			message = e.toString();
+//			return errorPage;
+		}
+		
+		return message;
+	}
+    
+    //http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
+//    @RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
+//    public @ResponseBody JsonResponse addUser(@ModelAttribute(value="user") User user, BindingResult result ){
+//            JsonResponse res = new JsonResponse();
+//            ValidationUtils.rejectIfEmpty(result, "name", "Name can not be empty.");
+//            ValidationUtils.rejectIfEmpty(result, "education", "Educatioan not be empty");
+//            if(!result.hasErrors()){
+//                    userList.add(user);
+//                    res.setStatus("SUCCESS");
+//                    res.setResult(userList);
+//            }else{
+//                    res.setStatus("FAIL");
+//                    res.setResult(result.getAllErrors());
+//            }
+//
+//            return res;
+//    }
+    
+    @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> showJsonReply(@PathVariable("bbsnum") int bbsnum) {
+
+    	List<Reply> list = null;
+		try {
+			list = replyService.findReplyList(bbsnum);
+			logger.debug("size : "+list.size());
+    		logger.debug("list : "+list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.debug(e.toString());
+		}
+		
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		
+		JSONObject result = new JSONObject();
+		result.put("list", jsonArray);
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+		return new ResponseEntity<String>(JSONObject.fromObject(result)
+				.toString(), responseHeaders, HttpStatus.CREATED);
+	}
+    
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity<String> TEST() {
 		JSONArray jsonArray = new JSONArray();
@@ -269,144 +425,5 @@ public class BbsController {
 		model.put("bbs", bbs);
 
 		return "jsonView";
-	}
-	
-    @RequestMapping(value = "/test3/{num}", method = RequestMethod.GET)
-	public @ResponseBody
-	ResponseEntity<String> TEST3(@PathVariable("num") int num) {
-		
-    	Bbs bbs = null;
-    	try {
-			bbs = bbsService.findDetail(num);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-		// return JSONObject.fromObject(result).toString();
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-		return new ResponseEntity<String>(JSONObject.fromObject(bbs)
-				.toString(), responseHeaders, HttpStatus.CREATED);
-
-	}
-    
-    @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json", method = RequestMethod.GET)
-    public String showListJson(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
-    	
-    	/*
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('notice','admin',1);
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('free','admin',1);
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('portfolio','admin',2);
-    	 */
-    	
-		try {
-			
-			bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
-			
-		} catch (Exception e) {
-			logger.debug(e.toString());
-//			return errorPage;
-		}
-    	
-        return "jsonView";
-    }
-    
-    @RequestMapping(value = "/{bbsnum}/detail/{num}", method = RequestMethod.GET)
-    public String showDetail(@PathVariable("bbsnum") int bbsnum, @PathVariable("num") int num, Locale locale, Map model, HttpServletRequest request) {
-    	
-    	model.put("menu", menu);
-    	Bbs detail;
-    	try {
-    		
-    		bbsService.validRead(bbsnum, request);
-    		
-    		detail = bbsService.findDetail(num);
-    		int snum = num;
-    		List fileList = fileService.findFileList(classname, bbsnum, snum, request);
-    		model.put("detail", detail);
-    		model.put("bbsnum", bbsnum);
-    		model.put("filelist", fileList);
-    		
-    		Reply reply = new Reply();
-			model.put("reply", reply);
-    		
-    	} catch (Exception e) {
-    		logger.debug(e.toString());
-    		model.put("message", e.toString());
-    		return errorPage;
-    	}
-    	
-    	
-    	return "bbs/detail.tiles";
-    }
-    
-    @RequestMapping(value = "/detail/{num}/reply/add", method = RequestMethod.POST)
-	public @ResponseBody String addReply(@PathVariable("num") int num, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
-
-    	String message ="";
-    	model.put("menu", menu);
-		try {
-			
-			logger.info(reply.getClass()+"result.getAllErrors()"+result.getAllErrors());
-			if (result.hasErrors()) {
-				message = "fail";
-			}
-			
-			replyService.saveReply(reply, num, request);
-			
-
-		} catch (Exception e) {
-			logger.debug(e.toString());
-			model.put("message", e.toString());
-			message = e.toString();
-//			return errorPage;
-		}
-		
-		return message;
-	}
-    
-    //http://www.raistudies.com/spring/spring-mvc/ajax-form-validation-using-spring-mvc-and-jquery/
-//    @RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
-//    public @ResponseBody JsonResponse addUser(@ModelAttribute(value="user") User user, BindingResult result ){
-//            JsonResponse res = new JsonResponse();
-//            ValidationUtils.rejectIfEmpty(result, "name", "Name can not be empty.");
-//            ValidationUtils.rejectIfEmpty(result, "education", "Educatioan not be empty");
-//            if(!result.hasErrors()){
-//                    userList.add(user);
-//                    res.setStatus("SUCCESS");
-//                    res.setResult(userList);
-//            }else{
-//                    res.setStatus("FAIL");
-//                    res.setResult(result.getAllErrors());
-//            }
-//
-//            return res;
-//    }
-    
-    @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<String> showReply(@PathVariable("bbsnum") int bbsnum) {
-
-    	List<Reply> list = null;
-		try {
-			list = replyService.findReplyList(bbsnum);
-			logger.debug("size : "+list.size());
-    		logger.debug("list : "+list);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			logger.debug(e.toString());
-		}
-		
-		JSONArray jsonArray = JSONArray.fromObject(list);
-		
-		JSONObject result = new JSONObject();
-		result.put("list", jsonArray);
-
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-		return new ResponseEntity<String>(JSONObject.fromObject(result)
-				.toString(), responseHeaders, HttpStatus.CREATED);
 	}
 }

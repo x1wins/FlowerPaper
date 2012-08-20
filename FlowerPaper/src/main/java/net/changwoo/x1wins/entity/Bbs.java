@@ -1,7 +1,7 @@
 package net.changwoo.x1wins.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.IndexColumn;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -83,17 +81,16 @@ public class Bbs {
 //	}
 	
 	
-	@OneToMany(fetch = FetchType.EAGER)
+//	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
-    @JoinColumn(name="num")
-    @IndexColumn(name="idx")
-	private List<Reply> replys;
+	private Set<Reply> replys;
     
-	public List<Reply> getReplys() {
+	public Set<Reply> getReplys() {
 		return replys;
 	}
 
-	public void setReplys(List<Reply> replys) {
+	public void setReplys(Set<Reply> replys) {
 		this.replys = replys;
 	}
 

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -54,19 +54,21 @@ public class Reply {
     
 //    @ManyToOne
 //	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
-//    private Bbs bbs;
-//    
-//	public Bbs getBbs() {
-//		return bbs;
-//	}
-//
-//	public void setBbs(Bbs bbs) {
-//		this.bbs = bbs;
-//	}
-    
     @ManyToOne
-	@JoinColumn(name = "rnum", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name="num")
     private Bbs bbs;
+    
+	public Bbs getBbs() {
+		return bbs;
+	}
+
+	public void setBbs(Bbs bbs) {
+		this.bbs = bbs;
+	}
+    
+//    @ManyToOne
+//	@JoinColumn(name = "rnum", insertable = false, updatable = false, nullable = false)
+//    private Bbs bbs;
 
 	public int getRnum() {
 		return rnum;
@@ -116,12 +118,12 @@ public class Reply {
 		this.ip = ip;
 	}
 
-	public Bbs getBbs() {
-		return bbs;
-	}
-
-	public void setBbs(Bbs bbs) {
-		this.bbs = bbs;
-	}
+//	public Bbs getBbs() {
+//		return bbs;
+//	}
+//
+//	public void setBbs(Bbs bbs) {
+//		this.bbs = bbs;
+//	}
       
 }

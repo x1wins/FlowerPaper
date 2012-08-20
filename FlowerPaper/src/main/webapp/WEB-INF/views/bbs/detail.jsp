@@ -8,7 +8,7 @@
 <script src="<c:url value="/js/bbs.js"/>"></script>
 
 <script type="text/javascript">
-	function doAjaxPost(bbsnum) {
+	function doAjaxPost(num,contextPath) {
 		
 		
 		// get the form values
@@ -18,7 +18,7 @@
 		
 		$.ajax({
 			type : "POST",
-			url : "/x1wins/bbs/"+bbsnum+"/reply",
+			url : contextPath + "bbs/detail/"+num+"/reply/add",
 			data : "content=" + content,
 			success : function(response) {
 				// we have the response
@@ -94,7 +94,7 @@
 
 <div class="memo">
 
-<input type="button" value="Add Users" onclick="doAjaxPost('<c:out value="${detail.num}"/>')">
+<input type="button" value="Add reply" onClick="doAjaxPost('<c:out value="${detail.num}"/>','<c:url value="/"/>')">
 
 <form:form method="post" action="form" commandName="reply">
 	<form:input path="content" />
@@ -103,12 +103,13 @@
 
 <div id="info"></div>
 </div>
+
+
+<c:forEach var="reply" items="${detail.replys}">
 <div class="memo" id="71">
-	이창우(x1wins) | 2012-05-09 | <a href="javascript:delReply(71,529)">삭제</a><br />
-	http://www.mkyong.com/hibernate/hibernate-cascade-example-save-update-delete-and-delete-orphan/
+	<c:out value="${reply.userid}" /> | <c:out value="${reply.regdate}" /> | <a href="javascript:delReply(71,529)">삭제</a><br />
+	<c:out value="${reply.content}" />
 </div>
-<div class="memo" id="71">
-	이창우(x1wins) | 2012-05-09 | <a href="javascript:delReply(71,529)">삭제</a><br />
-	http://www.mkyong.com/hibernate/hibernate-cascade-example-save-update-delete-and-delete-orphan/
-</div>
+</c:forEach>
+
 <div class="clearfloat"></div>

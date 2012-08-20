@@ -31,6 +31,12 @@
 
 		<!-- json xml -->
 		<dependency>
+			<groupId>net.sf</groupId>
+			<artifactId>stat-scm</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+	            
+		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.8</version>

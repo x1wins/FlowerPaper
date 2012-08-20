@@ -1,0 +1,220 @@
+.memo {
+	display: block;
+	border-left: 5px solid #222;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+
+.memo {
+	border:1px solid #dddddd;
+	color:#666666;
+	display:block;
+	padding:10px;
+	margin:10px 0;
+}
+
+table {
+	width:100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	text-align:left;
+}
+th {
+	padding:7px 10px;
+	color:#fff;
+	border-top:3px solid #000000;
+	background-color:#000000;
+}
+td {
+	border-bottom:1px solid #f4f4f4;
+	padding:10px;
+}
+code, blockquote {
+	display:block;
+	border-left:5px solid #ddd;
+	padding:10px;
+	margin-bottom:20px;
+}
+
+
+* {
+	margin:0;
+	padding:0;
+}
+body  {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	background:#FFFFFF;
+	color:#515151;
+}
+img {
+	border:0;
+}
+h1 {
+	color:#dd8551;
+	font-size:24px;
+	font-family:tahoma, arial;
+	font-weight:bold;
+	padding:0 0 25px 0;
+}
+h2 {
+	color:#dd8551;
+	font-size:24px;
+	font-family:tahoma, arial;
+	padding:0 0 25px 0;
+}
+h3 {
+	color:#dd8551;
+	font-size:24px;
+	font-family:tahoma, arial;
+	padding:0 0 5px 0;
+}
+.aboutUs {
+	background:#ececec;	
+	padding:40px;
+}
+.boxes {
+	padding:5px 0;
+}
+.box {
+	float:left;
+	width:273px;
+	padding:0 25px 20px 25px;
+}
+.boxButton {
+	float:right;
+}
+.box p {
+	padding:10px 0;
+}
+.buttonStyle {
+	border:0;
+	cursor:pointer;
+	font-size:14px;
+	color:#ffffff;
+	background:#dd8551;
+	padding:2px 7px 2px 7px;
+}
+.icons {
+	float:right;
+	background:#FFFFFF;
+	margin:4px 3px 0px 3px;
+	padding:40px 0 0 0;
+}
+.icons li {
+	list-style:none;
+	display:inline;
+}
+a {
+	color:#dd8551;
+	text-decoration:underline;
+}
+a:hover {
+	color:#dd8551;
+	text-decoration:none;
+}
+#container { 
+	width: 980px;  
+	margin: 0 auto;
+} 
+#header { 
+}
+.menu {
+	background:#0b0b08;
+	padding:15px 0;
+}
+.menu li {
+	list-style:none;
+	display:inline;
+	padding:5px 25px 5px 25px;
+	border-right:1px solid #787877;
+}
+.menu a {
+	color:#bdbdbd;
+	font-size:12px;
+	text-decoration:none;
+}
+.menu a:hover {
+	color:#ffffff;
+	font-size:12px;
+	text-decoration:none;
+}
+.menu #active a {
+	color:#ffffff;
+}
+.logoContainer {
+	float:left;
+	padding:30px 0;
+}
+.logo {
+}
+.slogan {
+	color:#747474;
+	font-size:12px;
+}
+.headerPicContainer {
+	padding:25px 0;
+	background:url(images/headerBackground.jpg) no-repeat left top;
+	height:313px;
+	width:980px;
+}
+.headerText1 {
+	font-size:48px;
+	color:#dd8551;
+	padding:50px 0 0 50px;
+}
+.headerText2 {
+	font-size:18px;
+	color:#0b0b08;
+	padding:0 0 0 50px;
+}
+.headerPic {
+	float:left;
+	padding:0 20px 0 0;
+}
+.headerPicBody {
+} 
+.welcome {
+	padding:20px 0;
+}
+.picRight {
+	float:right;
+	padding:0 0 15px 20px;
+}
+#footer {
+	background:#ffffff url(images/footerBackground.jpg) repeat-x;
+	color:#515151;
+	padding:30px 0;
+	font-size:11px; 
+}
+#footer p {
+	text-align:center;
+} 
+#footer a {
+	color:#dd8551;
+	text-decoration:underline;
+	font-size:11px;
+}
+#footer a:hover {
+	color:#dd8551;
+	text-decoration:none;
+	font-size:11px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+
+/*add changwoo*/
+/** element defaults **/
+table {
+	width: 100%;
+	text-align: left;
+}
+
+th, td {
+	padding: 5px 10px;
+}

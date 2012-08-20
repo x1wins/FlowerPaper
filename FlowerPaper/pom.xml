@@ -125,6 +125,12 @@
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>3.0.0.RELEASE</version>
+<!-- 			<version>${org.springframework-version}</version> -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<exclusions>

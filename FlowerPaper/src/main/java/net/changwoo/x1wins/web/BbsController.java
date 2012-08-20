@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -413,9 +414,9 @@ public class BbsController {
 
 	}
 	
-	@RequestMapping(value = "/test2/{num}", method = RequestMethod.GET)
-	public @ResponseBody String TEST2(@PathVariable("num") int num,Map model) {
-		
+	@RequestMapping(value = "/test2/{num}.{type}", method = RequestMethod.GET)
+	public ModelAndView TEST2(@PathVariable("num") int num, @PathVariable("type") String type) {
+
 		Bbs bbs = null;
 		try {
 			bbs = bbsService.findDetail(num);
@@ -423,8 +424,15 @@ public class BbsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		model.put("bbs", bbs);
+		
+		Map resultMap = new HashMap();
+	    resultMap.put("bbs", bbs);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addAllObjects(resultMap);
+		modelAndView.setViewName(type+"View");
+		return modelAndView;
 
-		return "jsonView";
+		// return "jsonView";
 	}
 }

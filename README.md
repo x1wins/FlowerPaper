@@ -3,7 +3,7 @@ FlowerPaper
 
 welcome to FlowerPaper
 
-this open projecet is bbs(bulletin board system) and spring mvc with hibernate
+this open project is bbs(bulletin board system) and spring mvc with hibernate
 
 http://localhost:8080/FlowerPaper
 

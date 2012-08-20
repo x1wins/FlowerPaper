@@ -113,6 +113,7 @@
                         <beans:entry  key="user"  value="net.changwoo.x1wins.entity.User"/>
                         <beans:entry  key="bbs"  value="net.changwoo.x1wins.entity.Bbs"/>
                         <beans:entry  key="reply"  value="net.changwoo.x1wins.entity.Reply"/>
+                        <beans:entry  key="response"  value="net.changwoo.x1wins.entity.Response"/>
                      </beans:map>
                 </beans:property>
             </beans:bean>

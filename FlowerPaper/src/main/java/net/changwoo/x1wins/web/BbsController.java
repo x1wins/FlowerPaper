@@ -233,25 +233,27 @@ public class BbsController {
         return "bbs/list.tiles";
     }
 
-    @RequestMapping(value = "/{bbsnum}/list/{pagenum}.json", method = RequestMethod.GET)
-    public String showBbsListJson(@PathVariable("bbsnum") int bbsnum, @PathVariable("pagenum") int pageNum, Locale locale, Map model, HttpServletRequest request) {
+    @RequestMapping(value = "/data/{bbsnum}/list/{pagenum}.{type}", method = RequestMethod.GET)
+	public ModelAndView showBbsListData(@PathVariable("bbsnum") int bbsnum,
+			@PathVariable("pagenum") int pageNum,
+			@PathVariable("type") String type, Locale locale,
+			HttpServletRequest request) {
     	
-    	/*
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('notice','admin',1);
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('free','admin',1);
-    	 * mysql> insert into config (bbsname,userid, listTypeNum) values('portfolio','admin',2);
-    	 */
-    	
+    	Map resultMap = new HashMap();
+    	Response response = new Response();
 		try {
 			
-			bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
+			bbsService.findListAndPaging(bbsnum,pageNum, perPage , resultMap, request);
+			response.setStatus("SUCCESS");
+			response.setResult(resultMap);
 			
 		} catch (Exception e) {
 			logger.debug(e.toString());
-//			return errorPage;
+			response.setStatus("FAIL");
 		}
     	
-        return "jsonView";
+		ModelAndView modelAndView = getModelAndView(response, type);
+		return modelAndView;
     }
     
     @RequestMapping(value = "/{bbsnum}/detail/{num}", method = RequestMethod.GET)
@@ -283,38 +285,23 @@ public class BbsController {
     	return "bbs/detail.tiles";
     }
     
-    @RequestMapping(value = "/detail/{num}.json", method = RequestMethod.GET)
-   	public @ResponseBody
-   	ResponseEntity<String> showBbsDetailJson(@PathVariable("num") int num) {
-   		
-       	Bbs bbs = null;
-//       	JsonConfig config = new JsonConfig();
-//       	config.setJsonPropertyFilter(new PropertyFilter() {
-//       		public boolean apply(Object source, String name, Object value) {
-//       			if ("name".equals(name) || "description".equals(name)
-//       					|| "id".equals(name)) {
-//       				return false;
-//       			}
-//       			return true;
-//       		}
-//       	});
-       	try {
-       		
-       		
-   			bbs = bbsService.findDetail(num);
-   		} catch (Exception e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   		}
+	@RequestMapping(value = "/data/detail/{num}.{type}", method = RequestMethod.GET)
+	public ModelAndView showBbsDetailData(@PathVariable("num") int num,
+			@PathVariable("type") String type) {
 
-
-   		// return JSONObject.fromObject(result).toString();
-   		HttpHeaders responseHeaders = new HttpHeaders();
-   		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-   		return new ResponseEntity<String>(JSONObject.fromObject(bbs)
-   				.toString(), responseHeaders, HttpStatus.CREATED);
-
-   	}
+		Bbs bbs = null;
+		Map resultMap = new HashMap();
+		try {
+			bbs = bbsService.findDetail(num);
+			resultMap.put("bbs", bbs);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.debug(e.toString());
+		}
+		
+		ModelAndView modelAndView = getModelAndView(resultMap, type);
+		return modelAndView;
+	}
     
     @RequestMapping(value = "/detail/{num}/reply/add", method = RequestMethod.POST)
 	public @ResponseBody String addReply(@PathVariable("num") int num, @Valid Reply reply, BindingResult result, Map model, HttpServletRequest request) {
@@ -364,9 +351,8 @@ public class BbsController {
 //            return res;
 //    }
     
-    @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<String> showJsonReply(@PathVariable("bbsnum") int bbsnum) {
+    @RequestMapping(value = "/data/{bbsnum}/reply/list", method = RequestMethod.GET)
+    public ResponseEntity<String> showReplyData(@PathVariable("bbsnum") int bbsnum) {
 
     	List<Reply> list = null;
 		try {
@@ -422,7 +408,7 @@ public class BbsController {
 			bbs = bbsService.findDetail(num);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.debug(e.toString());
 		}
 		
 		Map resultMap = new HashMap();
@@ -434,5 +420,49 @@ public class BbsController {
 		return modelAndView;
 
 		// return "jsonView";
+	}
+	
+	/**
+	 * 
+	 * @param resultMap
+	 * @param type
+	 * @return ModelAndView
+	 * @throws Exception
+	 */
+	public ModelAndView getModelAndView(Map resultMap, String type)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		try{
+			modelAndView.addAllObjects(resultMap);
+			
+			if(!type.equals("json")&&!type.equals("xml")){
+				type = "json";
+			}
+			
+			modelAndView.setViewName(type + "View");
+			
+		}catch(Exception e){
+			logger.debug(e.toString());
+		}
+		return modelAndView;
+	}
+	public ModelAndView getModelAndView(Object attributeValue, String type)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		try{
+			modelAndView.addObject(attributeValue);
+			
+			if(!type.equals("json")&&!type.equals("xml")){
+				type = "json";
+			}
+			
+			modelAndView.setViewName(type + "View");
+			
+		}catch(Exception e){
+			logger.debug(e.toString());
+		}
+		return modelAndView;
 	}
 }

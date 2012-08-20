@@ -387,27 +387,26 @@ public class BbsController {
     
     @RequestMapping(value = "/{bbsnum}/reply/list", method = RequestMethod.GET)
     @ResponseBody
-	public  List<Reply> showReply(@PathVariable("bbsnum") int bbsnum, Map model) {
-//   	public String showReply(@PathVariable("bbsnum") int bbsnum, Map model) {
+    public ResponseEntity<String> showReply(@PathVariable("bbsnum") int bbsnum) {
 
     	List<Reply> list = null;
 		try {
 			list = replyService.findReplyList(bbsnum);
 			logger.debug("size : "+list.size());
     		logger.debug("list : "+list);
-    		Reply reply = list.get(0);
-    		logger.debug(reply.getContent());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-//			logger.debug(e.toString());
-//			return errorPage;
+			logger.debug(e.toString());
 		}
-    	
-//    	model.put("list",list);
 		
-//		return "jsonView";
-    	return list;
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		
+		JSONObject result = new JSONObject();
+		result.put("list", jsonArray);
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+		return new ResponseEntity<String>(JSONObject.fromObject(result)
+				.toString(), responseHeaders, HttpStatus.CREATED);
 	}
-    
 }

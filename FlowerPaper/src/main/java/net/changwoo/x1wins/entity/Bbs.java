@@ -1,7 +1,7 @@
 package net.changwoo.x1wins.entity;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -84,13 +83,13 @@ public class Bbs {
 //	@OneToMany(fetch = FetchType.EAGER)
 	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
-	private Set<Reply> replys;
+	private List<Reply> replys;
     
-	public Set<Reply> getReplys() {
+	public List<Reply> getReplys() {
 		return replys;
 	}
 
-	public void setReplys(Set<Reply> replys) {
+	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
 

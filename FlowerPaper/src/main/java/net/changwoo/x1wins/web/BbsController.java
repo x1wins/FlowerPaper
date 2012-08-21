@@ -196,10 +196,7 @@ public class BbsController {
     		return errorPage;
     	}
     	
-    	
     	return "redirect:/bbs/"+bbsnum+"/list/1";
-//    	return null;
-//    	return "redirect:/bbs/"+bbsnum+"/list/1";
     }
     
     
@@ -208,13 +205,6 @@ public class BbsController {
     	
     	model.put("menu", menu);
 		try {
-			
-//			bbsService.validRead(bbsnum, request, result);
-//			logger.info("bbsService.validRead(bbsnum, request, result) "+result.getAllErrors());
-//			
-//			if (!result.hasErrors()) {
-//				bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);
-//			}
 			
 			if (bbsService.validRead(bbsnum, request)) {
 				bbsService.findListAndPaging(bbsnum,pageNum, perPage , model, request);

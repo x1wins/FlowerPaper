@@ -86,7 +86,7 @@ public class BbsService {
 		List<Bbs> list = bbsDao.findList(bbsnum, pageNum, perPage); 
 		
 		//paging
-		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
+		int rowSize = list.size();// bbsDao.findListSize(bbsnum, pageNum);
 		
 		if(rowSize==0){
 			logger.debug("rowsize is 0");

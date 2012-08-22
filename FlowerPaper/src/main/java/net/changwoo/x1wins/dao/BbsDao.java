@@ -29,7 +29,6 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 	private DetachedCriteria getBbsListCriteria(int bbsnum, int pageNum){
 		
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
-		
 //		Criteria criteria = createCriteria(Bbs.class, "B");
 		detachedCriteria.createCriteria("config", "C");
 		detachedCriteria.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
@@ -42,17 +41,10 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 	
 	public List findList(int bbsnum, int pageNum, int perPage) throws Exception{
 		
-		//c.setFirstResult(start);
-		//c.setMaxResults(length);
-		
 		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
+		detachedCriteria.setResultTransformer(DetachedCriteria.DISTINCT_ROOT_ENTITY);
 		int startRow = (pageNum-1)*perPage;
-//		criteria.setFirstResult(startRow);
-//		criteria.setMaxResults(perPage);
-		
-//		List<Bbs> list = criteria.list();
 		List<Bbs> list = getHibernateTemplate().findByCriteria(detachedCriteria, startRow, perPage);
-		
 		
 		return list;
 		

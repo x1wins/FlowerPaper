@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -55,6 +54,7 @@ public class Reply {
 //    @ManyToOne
 //	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
     @ManyToOne
+//    @OneToMany(mappedBy="reply", fetch = FetchType.EAGER)
     @JoinColumn(name="num")
     private Bbs bbs;
     

@@ -1,7 +1,7 @@
 package net.changwoo.x1wins.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -81,15 +81,16 @@ public class Bbs {
 	
 	
 //	@OneToMany(fetch = FetchType.EAGER)
+//	@ManyToOne(fetch = FetchType.EAGER)
 	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
-	private List<Reply> replys;
+	private Set<Reply> replys;
     
-	public List<Reply> getReplys() {
+	public Set<Reply> getReplys() {
 		return replys;
 	}
 
-	public void setReplys(List<Reply> replys) {
+	public void setReplys(Set<Reply> replys) {
 		this.replys = replys;
 	}
 

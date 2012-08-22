@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,30 +61,14 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-	@ManyToOne(fetch = FetchType.EAGER)//(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
     private Config config;
 	
-////	@OneToMany(mappedBy ="bbs")
-//	@OneToMany(fetch = FetchType.LAZY)
-////    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-//	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "rnum") })
-//	private List<Reply> replys;
-//    
-//	public List<Reply> getReplys() {
-//		return replys;
-//	}
-//
-//	public void setReplys(List<Reply> replys) {
-//		this.replys = replys;
-//	}
-	
-	
-//	@OneToMany(fetch = FetchType.EAGER)
-//	@ManyToOne(fetch = FetchType.EAGER)
 	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
+//	@OrderBy(value = "rnum desc")
 	private Set<Reply> replys;
     
 	public Set<Reply> getReplys() {

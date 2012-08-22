@@ -27,7 +27,6 @@
 </c:choose>
 </div>
 
-<div class="memo">
 <input type="button" value="<spring:message code="bbs.write"/>" class="buttonStyle"
 	onClick="location.href='<c:url value='/bbs/'/>${bbsnum}/form'" />
 
@@ -77,9 +76,9 @@
 	<c:when test="${listtypenum == 2}">
 
 		<c:choose>
-			<c:when test="${not empty list}">
+			<c:when test="${not empty bbss}">
 				<div class="boxes">
-					<c:forEach var="detail" items="${list}">
+					<c:forEach var="detail" items="${bbss}">
 						<div class="box">
 							<h3>
 								<img width="273" height="198" src="<c:url value="/file/image"/>/bbs/<c:out value="${bbsnum}"/>/<c:out value="${detail.num}"/>" alt="" />
@@ -107,7 +106,6 @@
 	<c:otherwise>
 	</c:otherwise>
 </c:choose>
-</div>
 
 
 

@@ -3,7 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<div class="memo">
+<h3>bbs list</h3>
+<c:choose>
+	<c:when test="${not empty configs}">
+		<c:forEach var="detail" items="${configs}">
+				
+				<c:if test="${bbsnum==detail.bbsnum}">
+				<b>
+				</c:if>
+				<a href="<c:url value="/bbs/"/><c:out value="${detail.bbsnum}"/>/list/1" />
+				<c:out value="${detail.bbsname}"/>
+				</a>
+				<c:if test="${bbsnum==detail.bbsnum}">
+				</b>
+				</c:if>
+				 | 
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<p>등록된 게시판이 없습니다.</p>
+	</c:otherwise>
+</c:choose>
+</div>
 
+<div class="memo">
 <input type="button" value="<spring:message code="bbs.write"/>" class="buttonStyle"
 	onClick="location.href='<c:url value='/bbs/'/>${bbsnum}/form'" />
 
@@ -15,7 +39,7 @@
 			</h3>
 
 			<c:choose>
-				<c:when test="${not empty list}">
+				<c:when test="${not empty bbss}">
 					<table>
 						<tbody>
 							<tr>
@@ -25,7 +49,7 @@
 								<th>작성자</th>
 								<th>조회수</th>
 							</tr>
-							<c:forEach var="detail" items="${list}">
+							<c:forEach var="detail" items="${bbss}">
 								<tr>
 									<td><c:out value="${detail.num}" /></td>
 									<td>[<a
@@ -83,7 +107,7 @@
 	<c:otherwise>
 	</c:otherwise>
 </c:choose>
-
+</div>
 
 
 

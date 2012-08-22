@@ -83,10 +83,10 @@ public class BbsService {
 	public void findListAndPaging(int bbsnum, int pageNum, int perPage, Map model, HttpServletRequest request)throws Exception {
 
 		//bbs list
-		List<Bbs> list = bbsDao.findList(bbsnum, pageNum, perPage); 
+		List<Bbs> bbss = bbsDao.findList(bbsnum, pageNum, perPage); 
 		
 		//paging
-		int rowSize = list.size();// bbsDao.findListSize(bbsnum, pageNum);
+		int rowSize = bbss.size();// bbsDao.findListSize(bbsnum, pageNum);
 		
 		if(rowSize==0){
 			logger.debug("rowsize is 0");
@@ -138,11 +138,15 @@ public class BbsService {
 //			bbsname = bbs.getConfig().getBbsname();
 //		}
 		
+		List<Config> configs = configDao.findAllByProperty("publicYn", 1);
+		logger.debug(configs.size()+" configs size");
+		
 		model.put("bbsnum", bbsnum);
 		model.put("bbsname", bbsname);
-		model.put("list", list);
+		model.put("bbss", bbss);
 		model.put("paging", paging);
 		model.put("listtypenum", listTypeNum);
+		model.put("configs", configs);
 		
 	}
 	

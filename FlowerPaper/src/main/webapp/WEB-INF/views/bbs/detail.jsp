@@ -174,8 +174,6 @@
 </div>
 
 
-
-
 <div class="memo" id="bottom">
 
 <input type="button" value="Add reply" onClick="doAjaxPost('<c:out value="${detail.num}"/>','<c:url value="/"/>')">

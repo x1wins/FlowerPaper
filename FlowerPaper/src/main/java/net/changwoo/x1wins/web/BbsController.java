@@ -250,7 +250,7 @@ public class BbsController {
     public String showBbsDetail(@PathVariable("bbsnum") int bbsnum, @PathVariable("num") int num, Locale locale, Map model, HttpServletRequest request) {
     	
     	model.put("menu", menu);
-    	Bbs detail;
+    	Bbs detail = null;
     	try {
     		
     		bbsService.validRead(bbsnum, request);

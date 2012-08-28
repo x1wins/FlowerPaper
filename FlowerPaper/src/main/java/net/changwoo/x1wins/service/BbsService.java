@@ -11,6 +11,7 @@ import net.changwoo.x1wins.dao.ConfigDao;
 import net.changwoo.x1wins.dao.UserDao;
 import net.changwoo.x1wins.entity.Bbs;
 import net.changwoo.x1wins.entity.Config;
+import net.changwoo.x1wins.entity.Reply;
 import net.changwoo.x1wins.entity.User;
 
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class BbsService {
 
 	private static final Logger logger = LoggerFactory
@@ -35,7 +37,6 @@ public class BbsService {
 	@Autowired
 	private UserDao userDao;
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveBbs(Bbs bbs, int bbsnum, HttpServletRequest request) throws Exception {
 
 		Config config = configDao.findAllByProperty("bbsnum", bbsnum).get(0);
@@ -58,7 +59,6 @@ public class BbsService {
 		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void updateBbs(Bbs bbs, int bbsnum, HttpServletRequest request) throws Exception {
 		
 		int count = bbsDao.findById(bbs.getNum()).getCount();
@@ -67,7 +67,6 @@ public class BbsService {
 		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(int bbsnum, int num)throws Exception {
 
 		Bbs bbs = bbsDao.findById(num);
@@ -79,18 +78,16 @@ public class BbsService {
 		bbsDao.delete(bbs);
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void findListAndPaging(int bbsnum, int pageNum, int perPage, Map model, HttpServletRequest request)throws Exception {
 
 		//bbs list
 		List<Bbs> bbss = bbsDao.findList(bbsnum, pageNum, perPage); 
 		
 		//paging
-		int rowSize = bbss.size();// bbsDao.findListSize(bbsnum, pageNum);
+//		int rowSize = bbss.size();
+		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
 		
-		if(rowSize==0){
-			logger.debug("rowsize is 0");
-		}
+		logger.debug("bbss.size() is : "+bbss.size());
 		
 		int pageSize = 0;
 		
@@ -150,20 +147,33 @@ public class BbsService {
 		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public Bbs findDetail(int num)throws Exception {
+	
+		Bbs bbs = null;
+		try{
+			bbs = bbsDao.findBbsDetailById(num);
+//		Bbs bbs = bbsDao.findById(num);
+//		Bbs bbs = null;//= bbsDao.findBbsDetailById(num);
+//		List <Reply>list = bbs.getReplys();
+//		logger.debug("========= findDetail replys size : "+list.size());
+//		
+//		
+//		for(Reply reply:list){
+//			logger.debug("reply rnum : "+reply.getRnum()+"");
+//			System.out.println("reply rnum : "+reply.getRnum());
+//		}
 		
-		Bbs bbs = bbsDao.findById(num);
 		int count = bbs.getCount();
 		count++;
 		bbs.setCount(count);
 		bbsDao.saveOrUpdate(bbs);
-		
+		} catch (Exception e) {
+			logger.debug(e.toString());
+		}
 		return bbs;
 		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validSignin(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
@@ -194,7 +204,6 @@ public class BbsService {
 		return resultBoolean;
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validOwn(int num, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
@@ -229,13 +238,12 @@ public class BbsService {
 		return resultBoolean;
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validRead(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;
 		String message = "";
 		
-		logger.debug("bbsnum "+bbsnum);
+		logger.debug("bbsnum validRead "+bbsnum);
 		List configList = configDao.findAllByProperty("bbsnum", bbsnum);
 		
 		if(configList.size()<=0){
@@ -307,7 +315,6 @@ public class BbsService {
 		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public boolean validWrite(int bbsnum, HttpServletRequest request) throws Exception{
 		
 		boolean resultBoolean = false;

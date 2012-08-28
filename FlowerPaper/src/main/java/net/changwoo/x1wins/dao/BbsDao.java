@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(BbsDao.class);
+
+	
 	@Autowired
 	BbsDao(SessionFactory sf) {
 		super(sf);
@@ -31,6 +38,7 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
 //		Criteria criteria = createCriteria(Bbs.class, "B");
 		detachedCriteria.createCriteria("config", "C");
+		detachedCriteria.setResultTransformer(DetachedCriteria.DISTINCT_ROOT_ENTITY);
 		detachedCriteria.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
 		return detachedCriteria;
 		
@@ -39,12 +47,32 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 //				.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
 	}
 	
+	public Bbs findBbsDetailById(int id) {
+
+		Bbs bbs = null;
+		try{
+			
+			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
+//			detachedCriteria.createCriteria("replys","R");//if subclass not exist not is null exception
+			detachedCriteria.add(Restrictions.eq("B.num", id));
+			bbs = (Bbs) getHibernateTemplate().findByCriteria(detachedCriteria).get(0); 
+		} catch (Exception e) {
+			logger.debug(e.toString());
+		}
+		
+		return bbs;
+	}
+	
 	public List findList(int bbsnum, int pageNum, int perPage) throws Exception{
 		
-		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
+//		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
+		detachedCriteria.createCriteria("config", "C");
+		detachedCriteria.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
 		detachedCriteria.setResultTransformer(DetachedCriteria.DISTINCT_ROOT_ENTITY);
 		int startRow = (pageNum-1)*perPage;
 		List<Bbs> list = getHibernateTemplate().findByCriteria(detachedCriteria, startRow, perPage);
+		
 		
 		return list;
 		
@@ -55,8 +83,14 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 //		Criteria criteria = getBbsListCriteria(bbsnum, pageNum);
 //		
 //		return criteria.list().size();
-		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
+//		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
+//		
+//		return getHibernateTemplate().findByCriteria(detachedCriteria).size();
 		
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
+		detachedCriteria.createCriteria("config", "C");
+		detachedCriteria.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
+		detachedCriteria.setResultTransformer(DetachedCriteria.DISTINCT_ROOT_ENTITY);
 		return getHibernateTemplate().findByCriteria(detachedCriteria).size();
 	}
 }

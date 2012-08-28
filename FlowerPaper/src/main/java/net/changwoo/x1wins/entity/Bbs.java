@@ -1,7 +1,7 @@
 package net.changwoo.x1wins.entity;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,14 +68,15 @@ public class Bbs {
 	
 	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
-//	@OrderBy(value = "rnum desc")
-	private Set<Reply> replys;
+//	@OrderBy(value = "rnum desc" )
+//	@OrderColumn(name="rnum")
+	private List<Reply> replys;
     
-	public Set<Reply> getReplys() {
+	public List<Reply> getReplys() {
 		return replys;
 	}
 
-	public void setReplys(Set<Reply> replys) {
+	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
 

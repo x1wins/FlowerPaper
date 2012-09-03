@@ -88,6 +88,7 @@ public class BbsService {
 		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
 		
 		logger.debug("bbss.size() is : "+bbss.size());
+		logger.debug("rowSize is : "+rowSize);
 		
 		int pageSize = 0;
 		

@@ -7,6 +7,7 @@ import net.changwoo.x1wins.entity.Bbs;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,27 +66,24 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 	
 	public List findList(int bbsnum, int pageNum, int perPage) throws Exception{
 		
-//		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
 		detachedCriteria.createCriteria("config", "C");
 		detachedCriteria.add(Restrictions.eq("C.bbsnum", bbsnum)).addOrder(Order.desc("B.num"));
 		detachedCriteria.setResultTransformer(DetachedCriteria.DISTINCT_ROOT_ENTITY);
+		
 		int startRow = (pageNum-1)*perPage;
+		logger.debug("startRow : "+String.valueOf(startRow));
 		List<Bbs> list = getHibernateTemplate().findByCriteria(detachedCriteria, startRow, perPage);
 		
+		if(list.size()<perPage){
+			list = getHibernateTemplate().findByCriteria(detachedCriteria, startRow, perPage+perPage-list.size());
+		}
 		
 		return list;
 		
 	}
 	
 	public int findListSize(int bbsnum, int pageNum) throws Exception{
-		
-//		Criteria criteria = getBbsListCriteria(bbsnum, pageNum);
-//		
-//		return criteria.list().size();
-//		DetachedCriteria detachedCriteria = getBbsListCriteria(bbsnum, pageNum);
-//		
-//		return getHibernateTemplate().findByCriteria(detachedCriteria).size();
 		
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
 		detachedCriteria.createCriteria("config", "C");

@@ -84,8 +84,15 @@ public class BbsService {
 		List<Bbs> bbss = bbsDao.findList(bbsnum, pageNum, perPage); 
 		
 		//paging
-//		int rowSize = bbss.size();
-		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
+		int rowSize = bbss.size();
+//		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
+		
+		int fromIndex = (pageNum-1)*perPage;
+		int toIndex = fromIndex + perPage;
+		if(toIndex>rowSize){
+			toIndex = rowSize;
+		}
+		bbss = bbss.subList(fromIndex, toIndex);
 		
 		logger.debug("bbss.size() is : "+bbss.size());
 		logger.debug("rowSize is : "+rowSize);

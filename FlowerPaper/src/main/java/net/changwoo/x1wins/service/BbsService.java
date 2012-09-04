@@ -81,29 +81,34 @@ public class BbsService {
 	public void findListAndPaging(int bbsnum, int pageNum, int perPage, Map model, HttpServletRequest request)throws Exception {
 
 		//bbs list
-		List<Bbs> bbss = bbsDao.findList(bbsnum, pageNum, perPage); 
+		List<Bbs> bbss = bbsDao.findList(bbsnum); 
 		
-		//paging
-		int rowSize = bbss.size();
-//		int rowSize = bbsDao.findListSize(bbsnum, pageNum);
+		//total row size
+		int totalRowSize = bbss.size();
 		
+		//list sublist index value
 		int fromIndex = (pageNum-1)*perPage;
 		int toIndex = fromIndex + perPage;
-		if(toIndex>rowSize){
-			toIndex = rowSize;
+		if(toIndex>totalRowSize){
+			toIndex = totalRowSize;
 		}
+		
+		//list sublist
 		bbss = bbss.subList(fromIndex, toIndex);
 		
+		
+		
+		
 		logger.debug("bbss.size() is : "+bbss.size());
-		logger.debug("rowSize is : "+rowSize);
+		logger.debug("totalRowSize is : "+totalRowSize);
 		
 		int pageSize = 0;
 		
 			
-		if (rowSize % perPage == 0) {
-			pageSize = rowSize / perPage;
+		if (totalRowSize % perPage == 0) {
+			pageSize = totalRowSize / perPage;
 		} else {
-			pageSize = rowSize / perPage + 1;
+			pageSize = totalRowSize / perPage + 1;
 		}
 			
 		
@@ -121,7 +126,6 @@ public class BbsService {
 		}
 		
 		String paging = "";
-		//http://localhost:8080/x1wins/bbs/1/list/1
 		for(int i=startPage; i<=endPage; i++){
 			if(i == pageNum){
 				paging += "<b>";
@@ -136,12 +140,6 @@ public class BbsService {
 		Config config = configDao.findAllByProperty("bbsnum", bbsnum).get(0);
 		int listTypeNum = config.getListTypeNum();
 		String bbsname = config.getBbsname();
-		
-//		if(rowSize>0){
-//			Bbs bbs = list.get(0);
-//			listTypeNum = bbs.getConfig().getListTypeNum();
-//			bbsname = bbs.getConfig().getBbsname();
-//		}
 		
 		List<Config> configs = configDao.findAllByProperty("publicYn", 1);
 		logger.debug(configs.size()+" configs size");

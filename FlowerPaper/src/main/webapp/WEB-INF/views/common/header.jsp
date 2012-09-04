@@ -33,7 +33,7 @@
 			<li <c:if test="${menu=='bbs'}">id="active"</c:if> ><a href="<c:url value="/bbs/1/list/1"/>"><spring:message code="bbs"/></a></li>
 			
 			<c:choose>
-				<c:when test="${not empty sessionScope}">
+				<c:when test="${not empty sessionScope.userid}">
 				<li <c:if test="${menu=='signout'}">id="active"</c:if> ><a href="<c:url value="/user/signout"/>"><spring:message code="sign_out"/></a></li>
 				</c:when>
 				<c:otherwise>

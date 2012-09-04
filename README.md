@@ -5,7 +5,7 @@ welcome to FlowerPaper
 
 this is bbs(bulletin board system) open project developed by spring mvc with hibernate
 
-http://localhost:8080/FlowerPaper
+http://localhost:8080/app
 
 db setting value in net.changwoo.x1wins.proeprties.jdbc.properties
 

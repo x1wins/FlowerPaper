@@ -176,10 +176,21 @@
 <!-- 	</bean> -->
 	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 	
+	<!-- 전체 인터셉터 -->
 	<mvc:interceptors>
 		<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<beans:property name="paramName" value="lang" />
 		</beans:bean>
+        <beans:bean class="net.changwoo.x1wins.interceptor.CurrentUrlInterceptor"/>
 	</mvc:interceptors>
+	
+ 
+    <!-- 부분 인터셉터 -->
+<!--     <mvc:interceptors> -->
+<!--         <mvc:interceptor> -->
+<!--             <mvc:mapping path="/test/*/*"/> -->
+<!--             <bean class="net.changwoo.isanho.interceptor.LoginInterceptor"/> -->
+<!--         </mvc:interceptor> -->
+<!--     </mvc:interceptors> -->
 
 </beans:beans>

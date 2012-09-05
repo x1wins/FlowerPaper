@@ -80,20 +80,26 @@ public class UserController {
 	 */
 	// Display the form on the get request
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public String showSignUpForm(Map model) {
+	public String showSignUpForm(Map model, HttpServletRequest request) {
+		
+		String currentUrl = request.getParameter("currentUrl").toString();
+		logger.debug("currentUrl : "+currentUrl);
+		
 		User user = new User();
 		model.put("user", user);
     	model.put("menu", "signup");
-
+		model.put("currentUrl", currentUrl);
+		
 		return "user/signup.tiles";
 	}
 
 	// Process the form.
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-//	public String processSignUpForm(@Valid User user, @RequestParam("file") MultipartFile file, BindingResult result
 	public String processSignUpForm(@Valid User user, BindingResult result
-			,Map model, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
+			,Map model, @RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
 
+		String currentUrl = request.getParameter("currentUrl").toString();
+		
 		if (result.hasErrors()) {
 			return "user/signup.tiles";
 		}
@@ -118,13 +124,16 @@ public class UserController {
 				model.put("user", user);
 				
 				userService.saveUser(user);
+				
+				response.sendRedirect(currentUrl);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.debug(e.toString());
 		}
 
-		return "user/signup_success.tiles";
+//		return "user/signup_success.tiles";
+		return null;
 	}
 
 	/**
@@ -136,18 +145,25 @@ public class UserController {
 	 */
 	// Display the form on the get request
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public String showSignInForm(Map model) {
+	public String showSignInForm(Map model, HttpServletRequest request) {
+		
+		String currentUrl = request.getParameter("currentUrl").toString();
+		
 		Signin signin = new Signin();
 		model.put("signin", signin);
     	model.put("menu", "signin");
+    	model.put("currentUrl", currentUrl);
 
 		return "user/signin.tiles";
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public String processSignInForm(@Valid Signin signin, BindingResult result,
-			Map model, HttpServletRequest request) {
+			Map model, HttpServletRequest request, HttpServletResponse response) {
 
+		String currentUrl = request.getParameter("currentUrl").toString();
+		logger.debug("currentUrl : "+currentUrl);
+		
 		try {
 			if (result.hasErrors()) {
 				return "user/signin.tiles";
@@ -161,15 +177,18 @@ public class UserController {
 				
 				//sign in success and creating session
 				userService.createSigninSession(request, signin.getUserid());
-				
+
 			}
 
 			model.put("signin", signin);
+			response.sendRedirect(currentUrl);
+			
 		} catch (Exception e) {
 			logger.debug(e.toString());
 		}
 
-		return "user/signin_success.tiles";
+//		return "user/signin_success.tiles";
+		return null;
 	}
 
 	/**
@@ -183,10 +202,13 @@ public class UserController {
 	 public String doSignOut(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 		 logger.debug("sign out " + locale.toString());
 		 
+		 String currentUrl = request.getParameter("currentUrl").toString();
+		 
 		 try{
 			 
 			 userService.removeSignOutSession(request);
-			 response.sendRedirect(request.getContextPath()+"/index");
+//			 response.sendRedirect(request.getContextPath()+"/index");
+			 response.sendRedirect(currentUrl);
 			 
 		 }catch (Exception e) {
 			// TODO: handle exception
@@ -194,7 +216,7 @@ public class UserController {
 		}
 	
 		 return null;
-//	 return "redicte:/user/signin";
+//		 return "redirect:"+currentUrl;
 	 }
 
 }

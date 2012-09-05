@@ -3,11 +3,11 @@ package net.changwoo.x1wins.dao;
 import java.util.List;
 
 import net.changwoo.x1wins.entity.Bbs;
+import net.changwoo.x1wins.entity.Reply;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,13 @@ public class BbsDao extends GenericDaoImpl<Bbs, Integer> {
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Bbs.class, "B");
 //			detachedCriteria.createCriteria("replys","R");//if subclass not exist not is null exception
 			detachedCriteria.add(Restrictions.eq("B.num", id));
-			bbs = (Bbs) getHibernateTemplate().findByCriteria(detachedCriteria).get(0); 
+//			detachedCriteria.addOrder(Order.desc("R.rnum"));//subclass orderby not woring
+			bbs = (Bbs) getHibernateTemplate().findByCriteria(detachedCriteria).get(0);
+
+			for (Reply replys : bbs.getReplys()) {
+				logger.debug("replys.getRnum() : " + replys.getRnum());
+			}
+			
 		} catch (Exception e) {
 			logger.debug(e.toString());
 		}

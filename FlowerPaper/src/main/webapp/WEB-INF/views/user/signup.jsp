@@ -34,6 +34,7 @@
 				<td> </td><td><input type="submit" value="Submit" /> </td><td> </td>
 			</tr>
 		</table>
+		<input type="hidden" name="currentUrl" value="${currentUrl}"/>
 	</form:form>
 </div>
 

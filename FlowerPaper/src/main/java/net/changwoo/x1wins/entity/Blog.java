@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,15 +22,12 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="bbs")
-public class Bbs {
+@Table(name="blog")
+public class Blog {
 
-	public Bbs() {
-		
+	public Blog() {
 		this.status = 1;
 		this.regdate = new Date();
-		this.count = 0;
-		
 	}
 	
 	@Id
@@ -45,9 +41,6 @@ public class Bbs {
     @Column(name = "status", nullable = false, insertable = false, updatable = true, columnDefinition = "int default 1")
     private int status;
     
-    @Column(name = "count", nullable = false)
-    private int count;
-     
     @Temporal(TemporalType.TIMESTAMP) 
     private Date regdate;
 
@@ -62,14 +55,8 @@ public class Bbs {
     @Column(name = "ip", nullable = false, length = 255)
     private String ip;
     
-	@ManyToOne(fetch = FetchType.EAGER)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "bbs_config", joinColumns = { @JoinColumn(name = "num") }, inverseJoinColumns = { @JoinColumn(name = "bbsnum") })
-    private Config config;
-	
 	@OneToMany(mappedBy="bbs", fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
-//	@OrderBy(value = "rnum desc" )
 	private List<Reply> replys;
     
 	public List<Reply> getReplys() {
@@ -90,26 +77,6 @@ public class Bbs {
 	
 	public void setIp(String ip) {
 		this.ip = ip;
-	}
-
-
-	public Config getConfig() {
-		return config;
-	}
-
-
-	public int getCount() {
-		return count;
-	}
-
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-
-	public void setConfig(Config config) {
-		this.config = config;
 	}
 
 

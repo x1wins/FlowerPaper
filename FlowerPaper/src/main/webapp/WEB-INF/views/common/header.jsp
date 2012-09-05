@@ -34,11 +34,11 @@
 			
 			<c:choose>
 				<c:when test="${not empty sessionScope.userid}">
-				<li <c:if test="${menu=='signout'}">id="active"</c:if> ><a href="<c:url value="/user/signout"/>"><spring:message code="sign_out"/></a></li>
+				<li <c:if test="${menu=='signout'}">id="active"</c:if> ><a href="<c:url value="/user/signout"/>?currentUrl=${currentUrl}"><spring:message code="sign_out"/></a></li>
 				</c:when>
 				<c:otherwise>
-				<li <c:if test="${menu=='signup'}">id="active"</c:if> ><a href="<c:url value="/user/signup"/>"><spring:message code="sign_up"/></a></li>
-				<li <c:if test="${menu=='signin'}">id="active"</c:if> ><a href="<c:url value="/user/signin"/>"><spring:message code="sign_in"/></a></li>
+				<li <c:if test="${menu=='signup'}">id="active"</c:if> ><a href="<c:url value="/user/signup"/>?currentUrl=${currentUrl}"><spring:message code="sign_up"/></a></li>
+				<li <c:if test="${menu=='signin'}">id="active"</c:if> ><a href="<c:url value="/user/signin"/>?currentUrl=${currentUrl}"><spring:message code="sign_in"/></a></li>
 				</c:otherwise>
 				
 			</c:choose>

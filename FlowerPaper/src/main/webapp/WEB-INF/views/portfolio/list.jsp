@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 
@@ -12,7 +12,7 @@
 			<h3><c:out value="${detail.num}"/> <c:out value="${detail.subject}"/></h3>
 			<img width="273" height="198" src="<c:url value="/file/image"/>/portfolio/1/<c:out value="${detail.num}"/>" alt="" />
 				
-				<!-- Ajax ·Îµù½Ã ÀÌ¹ÌÁö Ãâ·Â ¿µ¿ª -->
+				<!-- Ajax ë¡œë”©ì‹œ ì´ë¯¸ì§€ ì¶œë ¥ ì˜ì—­ -->
 <!-- 				<div id="ajax_indicator" > -->
 <%-- 			        <img src="${pageContext.request.contextPath}/images/viewLoading.gif" /> --%>
 <!-- 				</div> -->

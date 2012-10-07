@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -22,7 +22,7 @@
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
-		<p>µî·ÏµÈ °Ô½ÃÆÇÀÌ ¾ø½À´Ï´Ù.</p>
+		<p>ë“±ë¡ëœ ê²Œì‹œíŒì´ ì—†ìŠµë‹ˆë‹¤.</p>
 	</c:otherwise>
 </c:choose>
 </div>
@@ -42,11 +42,11 @@
 					<table>
 						<tbody>
 							<tr>
-								<th>¹øÈ£</th>
-								<th>Á¦¸ñ</th>
-								<th>µî·ÏÀÏ</th>
-								<th>ÀÛ¼ºÀÚ</th>
-								<th>Á¶È¸¼ö</th>
+								<th>ë²ˆí˜¸</th>
+								<th>ì œëª©</th>
+								<th>ë“±ë¡ì¼</th>
+								<th>ìž‘ì„±ìž</th>
+								<th>ì¡°íšŒìˆ˜</th>
 							</tr>
 							<c:forEach var="detail" items="${bbss}">
 								<tr>
@@ -66,7 +66,7 @@
 					</table>
 				</c:when>
 				<c:otherwise>
-					<p>µî·ÏµÈ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</p>
+					<p>ë“±ë¡ëœ ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</p>
 				</c:otherwise>
 			</c:choose>
 
@@ -97,7 +97,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<p>µî·ÏµÈ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</p>
+				<p>ë“±ë¡ëœ ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</p>
 			</c:otherwise>
 		</c:choose>
 

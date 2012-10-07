@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -18,11 +18,11 @@
 			url : contextPath + "bbs/detail/"+num+"/reply/add",
 			data : "content=" + content,
 			beforeSend: function() {
-	             //Åë½ÅÀ» ½ÃÀÛÇÒ¶§ Ã³¸®
+	             //í†µì‹ ì„ ì‹œì‘í• ë•Œ ì²˜ë¦¬
 	             $('#ajax_indicator').show().fadeIn('fast'); 
 	        },
 	        complete: function() {
-	             //Åë½ÅÀÌ ¿Ï·áµÈ ÈÄ Ã³¸®
+	             //í†µì‹ ì´ ì™„ë£Œëœ í›„ ì²˜ë¦¬
 	             $('#ajax_indicator').fadeOut();
 	        },
 			success : function(response) {
@@ -96,7 +96,7 @@
 // 					regdate = regdate.date + regdate.day;
 					var a = document.createElement("a");
 					a.setAttribute("href","javascript:removeReply('"+rnum+","+contextPath+"')");
-					a.innerHTML = "»èÁ¦";
+					a.innerHTML = "ì‚­ì œ";
 					var br = document.createElement("br");
 					var content = replyList[i].content;
 					
@@ -147,7 +147,7 @@
 					<img src="<c:out value="${file.url}" />" />
 				</c:when>
 				<c:otherwise>
-					Ã·ºÎ ÆÄÀÏ : <a href="<c:out value="${file.url}" />"><c:out
+					ì²¨ë¶€ íŒŒì¼ : <a href="<c:out value="${file.url}" />"><c:out
 							value="${file.filename}" /></a>
 				</c:otherwise>
 			</c:choose>
@@ -184,7 +184,7 @@
 
 <div id="info"></div>
 
-<!-- Ajax ·Îµù½Ã ÀÌ¹ÌÁö Ãâ·Â ¿µ¿ª -->
+<!-- Ajax ë¡œë”©ì‹œ ì´ë¯¸ì§€ ì¶œë ¥ ì˜ì—­ -->
 <div class="memo" id="ajax_indicator" style="display: none">
     <p
         style="text-align: center; padding: 0 0 0 0; left: 50%; top: 50%;">
@@ -196,7 +196,7 @@
 <div id="replys">
 	<c:forEach var="reply" items="${detail.replys}">
 	<div class="memo">
-		<c:out value="${reply.rnum}" /> | <c:out value="${reply.userid}" /> | <c:out value="${reply.regdate}" /> | <a href="javascript:removeReply('<c:out value="${reply.rnum}"/>','<c:url value="/"/>')">»èÁ¦</a><br />
+		<c:out value="${reply.rnum}" /> | <c:out value="${reply.userid}" /> | <c:out value="${reply.regdate}" /> | <a href="javascript:removeReply('<c:out value="${reply.rnum}"/>','<c:url value="/"/>')">ì‚­ì œ</a><br />
 		<c:out value="${reply.content}" />
 	</div>
 	</c:forEach>

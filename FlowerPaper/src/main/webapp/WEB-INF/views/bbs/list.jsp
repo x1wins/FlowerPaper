@@ -74,7 +74,10 @@
 
 	</c:when>
 	<c:when test="${listtypenum == 2}">
-
+		<h3>
+			<c:out value="${bbsname}" />
+		</h3>
+		
 		<c:choose>
 			<c:when test="${not empty bbss}">
 				<div class="boxes">

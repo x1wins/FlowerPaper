@@ -155,8 +155,8 @@ a:hover {
 }
 .headerPicContainer {
 	padding:25px 0;
-	background:url(images/headerBackground.jpg) no-repeat left top;
-	height:313px;
+/* 	background:url(images/headerBackground.jpg) no-repeat left top; */
+	height:150px;
 	width:980px;
 }
 .headerText1 {

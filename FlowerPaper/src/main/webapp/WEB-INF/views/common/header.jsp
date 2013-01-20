@@ -53,8 +53,12 @@
 <%-- 			<img src="<c:url value="/images/headerPic.jpg"/>" alt="" /> --%>
 <!-- 		</div> -->
 		<div class="headerPicBody">
-			<div class="headerText1"><spring:message code="header.title"/></div>
-			<div class="headerText2"><spring:message code="header.subtitle"/></div>
+			<div class="headerText1">
+				<spring:message code="header.title" />
+			</div>
+			<div class="headerText2">
+				<spring:message code="header.subtitle" />
+			</div>
 		</div>
 		<div class="clearfloat"></div>
 	</div>

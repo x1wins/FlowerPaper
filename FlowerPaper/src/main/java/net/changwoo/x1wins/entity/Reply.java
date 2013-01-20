@@ -4,12 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,7 +56,7 @@ public class Reply {
 //    @ManyToOne
 //	@JoinTable(name = "bbs_reply", joinColumns = { @JoinColumn(name = "rnum") }, inverseJoinColumns = { @JoinColumn(name = "num") })
     @ManyToOne
-//    @OneToMany(mappedBy="reply", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="reply", fetch = FetchType.EAGER)
     @JoinColumn(name="num")
     private Bbs bbs;
     

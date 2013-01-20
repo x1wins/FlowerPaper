@@ -20,7 +20,8 @@
 	</c:choose>
 	
 </title>
-<link rel="stylesheet" href="<c:url value="/styles.css" />" type="text/css" />
+<link rel="stylesheet" href="<c:url value="/css/styles.css" />" type="text/css" />
+<link rel="stylesheet" href="<c:url value="/css/response_table.css" />" type="text/css" />
 </head>
  
 <body>

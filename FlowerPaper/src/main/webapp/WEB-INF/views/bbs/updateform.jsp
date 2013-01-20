@@ -23,7 +23,7 @@
 				<td><spring:message code="bbs.content"/> <font color="red"><form:errors path="content" /></font></td>
 			</tr>
 			<tr>
-				<td> <form:input path="content" /> </td>
+				<td> <form:textarea class="ckeditor" path="content" /> </td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Submit" /> </td>

@@ -156,7 +156,7 @@
 	</c:forEach>
 
 	<p>
-		<c:out value="${detail.content}" />
+		<c:out value="${detail.content}" escapeXml="false" />
 	</p>
 	<br/>
 	<p>

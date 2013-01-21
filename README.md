@@ -7,6 +7,21 @@ this is bbs(bulletin board system) open project developed by spring mvc and hibe
 
 http://localhost:8080/FlowerPaper
 
+screen shot
+------------
+
+* bbs thumb picture list page
+![1 columns](https://github.com/x1wins/FlowerPaper/blob/master/FlowerPaper/src/main/webapp/screen_shot/pic_list.png?raw=true)
+
+* bbs text list page
+![1 columns](https://github.com/x1wins/FlowerPaper/blob/master/FlowerPaper/src/main/webapp/screen_shot/text_list.png?raw=true)
+
+* write from page
+![1 columns](https://github.com/x1wins/FlowerPaper/blob/master/FlowerPaper/src/main/webapp/screen_shot/write_form.png?raw=true)
+
+* bbs detail page
+![1 columns](https://github.com/x1wins/FlowerPaper/blob/master/FlowerPaper/src/main/webapp/screen_shot/detail.png?raw=true)
+
 How to use
 ------------
 

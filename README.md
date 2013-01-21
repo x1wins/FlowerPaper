@@ -9,11 +9,11 @@ http://localhost:8080/app
 
 db setting value in net.changwoo.x1wins.proeprties.jdbc.properties
 
-1. first step
+- first step
 
 WAS start
 
-2. second step
+- second step
 
 you  run follow this query
 

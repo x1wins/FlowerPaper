@@ -16,7 +16,7 @@ start WAS with FlowerPaper web application
 ------------
 
 you should change db setting yours id, password, db url
-db setting value(id,password,url) in net.changwoo.x1wins.proeprties.jdbc.properties
+**db setting value(id,password,url) in net.changwoo.x1wins.proeprties.jdbc.properties**
 
 3 third step
 ------------
@@ -28,6 +28,7 @@ you must run follow this query
     insert into config (bbsname,userid, listTypeNum) values('portfolio','admin',2);
 
 this follow is bbs list view type
+
     listTypeNum 1 - text view list
     listTypeNum 2 - thumb picture list
 

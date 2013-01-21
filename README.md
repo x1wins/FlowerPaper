@@ -7,6 +7,14 @@ this is bbs(bulletin board system) open project developed by spring mvc and hibe
 
 http://localhost:8080/FlowerPaper
 
+feature
+------------
+* multi language(Korean, English)
+* base spring, hibernate
+* open source
+* support xml, json api (You can use api for mobile or etc platform)
+* coming soon support mobile web(responsive web design)
+
 screen shot
 ------------
 

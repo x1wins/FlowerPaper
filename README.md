@@ -7,20 +7,20 @@ this is bbs(bulletin board system) open project developed by spring mvc and hibe
 
 http://localhost:8080/FlowerPaper
 
-1 first step
+How to use
 ------------
+
+###1 first step
 
 start WAS with FlowerPaper web application
 
-2 second step
-------------
+###2 second step
 
 you should change db setting yours id, password, db url
 
 **db setting value(id,password,url) in net.changwoo.x1wins.proeprties.jdbc.properties**
 
-3 third step
-------------
+###3 third step
 
 you must run follow this query
 

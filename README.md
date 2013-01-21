@@ -29,7 +29,7 @@ if you didn't run this query
 you can't use bbs
 
 this following is web, rest api url
-- data(json or xml, if you want xml. you should replace to xml word from json word)
+- data(json or xml, if you want xml. you should change json to xml in url word)
 bbs list
 http://localhost:8080/FlowerPaper/bbs/data/1/list/1.json
 bbs detail

@@ -55,23 +55,6 @@ public class BbsController {
     @Autowired
     private ReplyService replyService;
 
-//	@GET
-//	@Path("/test.json2")
-//	@Produces("application/json")
-//    public Bbs showListJson2() {
-//    	
-//		Bbs detail = null;
-//    	try {
-//    		
-//    		detail = bbsService.findDetail(1);
-//    		
-//    	} catch (Exception e) {
-//    		logger.debug(e.toString());
-//    	}
-//    	
-//    	return detail;
-//    }
-	
     @RequestMapping(value = "/{bbsnum}/form", method = RequestMethod.GET)
     public String showForm(@PathVariable("bbsnum") int bbsnum, Map model, HttpServletRequest request) {
     	
@@ -341,8 +324,8 @@ public class BbsController {
 //            return res;
 //    }
     
-    @RequestMapping(value = "/data/{bbsnum}/reply/list", method = RequestMethod.GET)
-    public ResponseEntity<String> showReplyData(@PathVariable("bbsnum") int bbsnum) {
+    @RequestMapping(value = "/data/{bbsnum}/reply/list.{type}", method = RequestMethod.GET)
+    public ModelAndView showReplyData(@PathVariable("bbsnum") int bbsnum, @PathVariable("type") String type) {
 
     	List<Reply> list = null;
 		try {
@@ -354,15 +337,17 @@ public class BbsController {
 			logger.debug(e.toString());
 		}
 		
-		JSONArray jsonArray = JSONArray.fromObject(list);
+//		JSONArray jsonArray = JSONArray.fromObject(list);
+//		
+//		JSONObject result = new JSONObject();
+//		result.put("list", jsonArray);
 		
-		JSONObject result = new JSONObject();
-		result.put("list", jsonArray);
-
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-		return new ResponseEntity<String>(JSONObject.fromObject(result)
-				.toString(), responseHeaders, HttpStatus.CREATED);
+		ModelAndView modelAndView = getModelAndView(list, type);
+		return modelAndView;
+//		HttpHeaders responseHeaders = new HttpHeaders();
+//		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+//		return new ResponseEntity<String>(JSONObject.fromObject(result)
+//				.toString(), responseHeaders, HttpStatus.CREATED);
 	}
     
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -372,14 +357,14 @@ public class BbsController {
 		jsonArray.add("1");
 		jsonArray.add("2");
 		for (Object name : jsonArray) {
-			System.out.println(name + "¤·¤¤¤©123");
+			System.out.println(name + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½123");
 		}
 		JSONObject result = new JSONObject();
 		result.put("list", jsonArray);
 
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("firstname", "¤¾");
-		map.put("secondname", "¤·¤©¤¾¤·");
+		map.put("firstname", "ï¿½ï¿½");
+		map.put("secondname", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		result.put("map", map);
 
 		// return JSONObject.fromObject(result).toString();

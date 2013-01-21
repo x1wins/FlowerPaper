@@ -20,8 +20,18 @@
 	</c:choose>
 	
 </title>
-<link rel="stylesheet" href="<c:url value="/css/styles.css" />" type="text/css" />
+<%-- <link rel="stylesheet" href="<c:url value="/css/styles.css" />" type="text/css" /> --%>
 <link rel="stylesheet" href="<c:url value="/css/response_table.css" />" type="text/css" />
+
+
+
+<link rel="stylesheet" href="<c:url value="/css/reset.css" />" type="text/css" />
+<link rel="stylesheet" href="<c:url value="/css/styles.css" />" type="text/css" />
+<%-- <link rel="stylesheet" href="<c:url value="/ablaze/styles.css" />" type="text/css" /> --%>
+<%-- <link rel="stylesheet" href="<c:url value="/sworm/styles.css" />" type="text/css" /> --%>
+<link rel="stylesheet" href="<c:url value="/css/media-queries.css" />" type="text/css" />
+
+
 </head>
  
 <body>

@@ -29,16 +29,27 @@ if you didn't run this query
 you can't use bbs
 
 this following is web, rest api url
+
 - data(json or xml, if you want xml. you should change json to xml in url word)
-bbs list
+
+1. bbs list
+
 http://localhost:8080/FlowerPaper/bbs/data/1/list/1.json
-bbs detail
+
+2. bbs detail
+
 http://localhost:8080/FlowerPaper/bbs/data/detail/15.json
-bbs reply list
+
+3. bbs reply list
+
 http://localhost:8080/FlowerPaper/bbs/data/1/reply/list.json
 
 - web
-bbs list
+
+1. bbs list
+
 http://localhost:8080/FlowerPaper/bbs/1/list/1
-bbs detail
+
+2. bbs detail
+
 http://localhost:8080/FlowerPaper/bbs/1/detail/15

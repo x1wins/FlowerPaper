@@ -26,4 +26,19 @@ listTypeNum is list type
 
 if you didn't run this query
 
-bbs can't used
+you can't use bbs
+
+this following is web, rest api url
+- data(json or xml, if you want xml. do chaging to xml word from json word)
+bbs list
+http://localhost:8080/FlowerPaper/bbs/data/1/list/1.json
+bbs detail
+http://localhost:8080/FlowerPaper/bbs/data/detail/15.json
+bbs reply list
+http://localhost:8080/FlowerPaper/bbs/data/1/reply/list.json
+
+- web
+bbs list
+http://localhost:8080/FlowerPaper/bbs/1/list/1
+bbs detail
+http://localhost:8080/FlowerPaper/bbs/1/detail/15

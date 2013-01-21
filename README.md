@@ -38,6 +38,7 @@ http://localhost:8080/FlowerPaper/bbs/data/detail/15.json
 3. bbs reply list
 http://localhost:8080/FlowerPaper/bbs/data/1/reply/list.json
 
+
 - web
 1. bbs list
 http://localhost:8080/FlowerPaper/bbs/1/list/1

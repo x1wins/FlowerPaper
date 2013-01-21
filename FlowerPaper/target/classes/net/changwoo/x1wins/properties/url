@@ -1,13 +1,18 @@
-- data(json or xml, if you want xml. do chaging to xml word from json word)
-bbs list
+1. data(json or xml, if you want xml. you should change json to xml in url word)
+- bbs list
 http://localhost:8080/FlowerPaper/bbs/data/1/list/1.json
-bbs detail
+- bbs detail
 http://localhost:8080/FlowerPaper/bbs/data/detail/15.json
-bbs reply list
+- bbs reply list
 http://localhost:8080/FlowerPaper/bbs/data/1/reply/list.json
+- member list
+http://localhost:8080/FlowerPaper/user/list.json
+- member detail
+http://localhost:8080/FlowerPaper/user/1/detail.json
 
-- web
-bbs list
+
+2. web
+- bbs list
 http://localhost:8080/FlowerPaper/bbs/1/list/1
-bbs detail
+- bbs detail
 http://localhost:8080/FlowerPaper/bbs/1/detail/15

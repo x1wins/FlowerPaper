@@ -41,7 +41,7 @@ public class UserController {
 	private UserService userService;
 
 	
-	@RequestMapping(value = "/list/{protocol}", method = RequestMethod.GET)
+	@RequestMapping(value = "/list.{protocol}", method = RequestMethod.GET)
 	public String doList(Map model, @PathVariable String protocol) {
 	 
 	    try {
@@ -56,12 +56,12 @@ public class UserController {
 	    return protocol + "View";
 	}
 	
-	@RequestMapping(value = "/detail/{protocol}", method = RequestMethod.GET)
-	public String doDetail(Map model, @PathVariable String protocol) {
+	@RequestMapping(value = "/{usernum}/detail.{protocol}", method = RequestMethod.GET)
+	public String doDetail(@PathVariable("usernum") int usernum, Map model, @PathVariable String protocol) {
 		
 		try {
 			
-			User user = userService.findUser(1);
+			User user = userService.findUser(usernum);
 			model.put("user", user);
 			
 		} catch (Exception e) {

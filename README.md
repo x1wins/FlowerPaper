@@ -16,6 +16,7 @@ start WAS with FlowerPaper web application
 ------------
 
 you should change db setting yours id, password, db url
+
 **db setting value(id,password,url) in net.changwoo.x1wins.proeprties.jdbc.properties**
 
 3 third step

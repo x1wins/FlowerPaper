@@ -31,7 +31,7 @@
 <!-- 		<beans:property name="contentType" value="text/html; charset=UTF-8"/> -->
 <!-- 	</beans:bean> -->
 
-	<context:component-scan base-package="net.changwoo.x1wins" />
+	<context:component-scan base-package="net.changwoo" />
 
 
 	<!-- tiles 2.2.2 -->

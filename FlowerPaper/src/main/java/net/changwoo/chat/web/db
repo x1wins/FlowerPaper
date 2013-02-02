@@ -1,0 +1,9 @@
+create database ggaggao; 
+
+INSERT INTO user (host, user, password) VALUES ('localhost','ggaggao',password('ggaggao')); 
+INSERT INTO user (host, user, password) VALUES ('%','ggaggao',password('ggaggao')); 
+
+INSERT INTO db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv) 
+VALUES('%', 'ggaggao', 'ggaggao', 'Y', 'Y', 'Y', 'Y','Y','Y'); 
+GRANT ALL on ggaggao.* TO ggaggao; 
+FLUSH PRIVILEGES;

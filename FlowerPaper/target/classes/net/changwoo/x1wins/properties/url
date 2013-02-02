@@ -25,3 +25,20 @@ user
 http://localhost:8080/FlowerPaper/user/list.json
 http://localhost:8080/FlowerPaper/user/1/detail.json
 http://localhost:8080/FlowerPaper/user/signup
+
+
+
+chat url
+
+chat room list
+http://localhost:8080/FlowerPaper/chat/room/find
+
+chat room resgist
+http://localhost:8080/FlowerPaper/chat/room/save?subject=test room&masterUserid=12
+
+
+message save
+http://localhost:8080/FlowerPaper/chat/message/save?content=hihi&userid=34&roomid=1
+
+message list
+http://localhost:8080/FlowerPaper/chat/message/find/1

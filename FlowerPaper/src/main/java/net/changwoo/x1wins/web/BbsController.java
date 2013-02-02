@@ -217,21 +217,21 @@ public class BbsController {
     	Response response = new Response();
 		try {
 			
-			HttpSession session = request.getSession(false);
-			if(session == null) {
-				
-				response.setStatus("FAIL");
-				response.setResult(resultMap);
-			} else {
-			
-				String userid = session.getAttribute("userid").toString();
-				logger.info("session userid "+userid);
-				logger.info("session getid() "+session.getId());
+//			HttpSession session = request.getSession(false);
+//			if(session == null) {
+//				
+//				response.setStatus("FAIL");
+//				response.setResult(resultMap);
+//			} else {
+
+//				String userid = session.getAttribute("userid").toString();
+//				logger.info("session userid "+userid);
+//				logger.info("session getid() "+session.getId());
 				
 				bbsService.findListAndPaging(bbsnum,pageNum, perPage , resultMap, request);
 				response.setStatus("SUCCESS");
 				response.setResult(resultMap);
-			}
+//			}
 			
 			
 			

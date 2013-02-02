@@ -30,7 +30,13 @@
 			<ref local="dataSource" />
 		</property>
 		<property name="lobHandler" ref="defaultLobHandler" />
-		<property name="packagesToScan" value="net.changwoo.x1wins.entity" />
+		<property name="packagesToScan">
+			<list>
+				<value>net.changwoo.x1wins.entity</value>
+				<value>net.changwoo.chat.entity</value>
+			</list>
+		</property>
+<!-- 		<property name="packagesToScan" value="net.changwoo.x1wins.entity" /> -->
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>

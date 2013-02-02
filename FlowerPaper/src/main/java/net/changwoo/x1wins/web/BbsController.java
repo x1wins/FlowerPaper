@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import net.changwoo.x1wins.entity.Bbs;
@@ -216,9 +217,23 @@ public class BbsController {
     	Response response = new Response();
 		try {
 			
-			bbsService.findListAndPaging(bbsnum,pageNum, perPage , resultMap, request);
-			response.setStatus("SUCCESS");
-			response.setResult(resultMap);
+			HttpSession session = request.getSession(false);
+			if(session == null) {
+				
+				response.setStatus("FAIL");
+				response.setResult(resultMap);
+			} else {
+			
+				String userid = session.getAttribute("userid").toString();
+				logger.info("session userid "+userid);
+				logger.info("session getid() "+session.getId());
+				
+				bbsService.findListAndPaging(bbsnum,pageNum, perPage , resultMap, request);
+				response.setStatus("SUCCESS");
+				response.setResult(resultMap);
+			}
+			
+			
 			
 		} catch (Exception e) {
 			logger.debug(e.toString());

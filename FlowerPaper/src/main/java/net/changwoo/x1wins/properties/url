@@ -9,6 +9,8 @@ http://localhost:8080/FlowerPaper/bbs/data/1/reply/list.json
 http://localhost:8080/FlowerPaper/user/list.json
 - member detail
 http://localhost:8080/FlowerPaper/user/1/detail.json
+= sign in
+http://localhost:8080/FlowerPaper/user/signin.json?userid=test&password=1
 
 
 2. web
@@ -16,3 +18,10 @@ http://localhost:8080/FlowerPaper/user/1/detail.json
 http://localhost:8080/FlowerPaper/bbs/1/list/1
 - bbs detail
 http://localhost:8080/FlowerPaper/bbs/1/detail/15
+
+
+
+user
+http://localhost:8080/FlowerPaper/user/list.json
+http://localhost:8080/FlowerPaper/user/1/detail.json
+http://localhost:8080/FlowerPaper/user/signup

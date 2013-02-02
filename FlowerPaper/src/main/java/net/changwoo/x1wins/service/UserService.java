@@ -76,10 +76,12 @@ public class UserService {
 		
 	}
 	
-	public void createSigninSession(HttpServletRequest request, String userid) throws Exception {
-		HttpSession session = request.getSession(false);
+	public String createSigninSession(HttpServletRequest request, String userid) throws Exception {
+		HttpSession session = request.getSession(true);
 		session.setAttribute("userid", userid);
-		logger.debug("id creating userid : "+session.getAttribute("userid"));
+		
+		logger.debug("id creating userid : "+session.getAttribute("userid")+" session.getId() "+session.getId() +" JSESSIONID "+ session.getAttribute("JSESSIONID"));
+		return session.getId();
 	}
 	
 	public void removeSignOutSession(HttpServletRequest request) throws Exception {

@@ -61,13 +61,13 @@ public class ChatServiceImpl implements ChatService {
 		Map param = new HashMap();
 		param.put("propertyName", "userid");
 		param.put("value", userid);
-		Map param2 = new HashMap();
-		param2.put("propertyName", "joinStatus");//java entity bean property name
-		param2.put("value", EXIST_VALUE);
+//		Map param2 = new HashMap();
+//		param2.put("propertyName", "joinStatus");//java entity bean property name
+//		param2.put("value", EXIST_VALUE);
 		
 		List list = new ArrayList();
 		list.add(param);
-		list.add(param2);
+//		list.add(param2);
 		
 		List joins = joinDao.findAllByProperty(list);
 

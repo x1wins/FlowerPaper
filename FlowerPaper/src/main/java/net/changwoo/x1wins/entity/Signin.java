@@ -15,6 +15,8 @@ public class Signin {
 	@NotEmpty(message = "Password must not be blank.")
     @Size(min = 1, max = 20)
     private String password;
+	
+	private String username;
 
 	public String getUserid() {
 		return userid;
@@ -30,6 +32,14 @@ public class Signin {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
     
 }

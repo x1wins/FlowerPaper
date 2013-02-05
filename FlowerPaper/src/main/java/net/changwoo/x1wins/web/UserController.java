@@ -155,6 +155,52 @@ public class UserController {
 //		return "user/signup_success.tiles";
 		return null;
 	}
+	
+	@RequestMapping(value = "/signup.json", method = RequestMethod.POST)
+	public ModelAndView processSignUpData(@Valid User user, BindingResult result
+			,Map model, HttpServletRequest request) {
+//, @RequestParam("file") MultipartFile file
+		
+		Map resultMap = new HashMap();
+    	Response response = new Response();
+    	
+		try {
+
+			if (userService.isValidSignup(user) == false) {
+
+				result.rejectValue("userid", "DuplicationId", "warnning");
+				response.setStatus("FAIL");
+				response.setResult(result);
+				
+			} else {
+
+				// sign in success and creating session
+				userService.createSigninSession(request, user.getUserid());
+
+				// 수정 예정
+//				Blob blob = Hibernate.createBlob(file.getInputStream());
+//				user.setFilename(file.getOriginalFilename());
+//				user.setContent(blob);
+//				user.setContentType(file.getContentType());
+
+				userService.saveUser(user);
+				
+				response.setStatus("SUCCESS");
+				response.setResult(user);
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.debug(e.toString());
+			response.setStatus("FAIL");
+			response.setResult(e.toString());
+
+		}
+		
+//		return "user/signin_success.tiles";
+		ModelAndView modelAndView = getModelAndView(response, "json");
+		return modelAndView;
+	}
 
 	/**
 	 * sign in
@@ -234,6 +280,10 @@ public class UserController {
 				String sessionId = userService.createSigninSession(request, signin.getUserid());
 				response.setStatus("SUCCESS");
 				response.setResult(sessionId);
+				
+				String userid = signin.getUserid();
+				String username = userService.findUsernameByUserid(userid).getName();
+				signin.setUsername(username);
 			}
 			
 			model.put("signin", signin);

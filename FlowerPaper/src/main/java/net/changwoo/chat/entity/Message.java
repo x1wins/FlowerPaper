@@ -33,9 +33,8 @@ public class Message {
 	@Column(name="roomid", nullable = false)
 	private int roomid;
 	
-	@Min(1)
 	@Column(name="userid", nullable = false)
-	private int userid;
+	private String userid;
 	
 	@NotEmpty
 	@Column(name="content", nullable = false)
@@ -73,11 +72,11 @@ public class Message {
 		this.roomid = roomid;
 	}
 
-	public int getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	

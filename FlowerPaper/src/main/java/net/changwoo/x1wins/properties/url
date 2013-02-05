@@ -25,6 +25,8 @@ user
 http://localhost:8080/FlowerPaper/user/list.json
 http://localhost:8080/FlowerPaper/user/1/detail.json
 http://localhost:8080/FlowerPaper/user/signup
+http://localhost:8080/FlowerPaper/user/signup.json
+http://localhost:8080/FlowerPaper/user/signin.json
 
 
 

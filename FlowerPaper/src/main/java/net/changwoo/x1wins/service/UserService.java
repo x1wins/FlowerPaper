@@ -70,6 +70,14 @@ public class UserService {
 	}
 	
 	@Transactional
+	public User findUsernameByUserid(String userid) throws Exception {
+		
+		return userDao.findAllByProperty("userid", userid).get(0);
+		
+	}
+	
+	
+	@Transactional
 	public List findAll() throws Exception {
 		
 		return userDao.findAll();

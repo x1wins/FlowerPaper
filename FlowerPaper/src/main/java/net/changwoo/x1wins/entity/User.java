@@ -24,6 +24,8 @@ public class User {
 		this.status = 1;
 		this.regdate = new Date();
 		this.level = 1;
+		this.phone = "no exist";
+		this.email = "no exist";
 	}
  
 	
@@ -95,8 +97,6 @@ public class User {
  
     @Column(name="content_type")
     private String contentType;
-    
-    
     
 //    @Column(name="file")
 //    @Lob

@@ -19,11 +19,23 @@
 		<org.aspectj-version>1.6.9</org.aspectj-version>
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 		<org.apache.tiles-version>2.2.2</org.apache.tiles-version>
+		<atmosphere-version>0.9</atmosphere-version>
 	</properties>
 	
 	
 	<dependencies>
-	
+
+	<dependency>
+		<groupId>org.atmosphere</groupId>
+		<artifactId>atmosphere-runtime</artifactId>
+		<version>${atmosphere-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.atmosphere</groupId>
+		<artifactId>atmosphere-jersey</artifactId>
+		<version>${atmosphere-version}</version>
+	</dependency>
+
 
 	<!-- cw -->
 		<!-- <dependency> -->

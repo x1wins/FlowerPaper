@@ -66,9 +66,9 @@ public class ChatController {
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
-	@RequestMapping(value = "/recevice", method = RequestMethod.GET)
+	@RequestMapping(value = "/recevice/{roomid}", method = RequestMethod.GET)
 	@ResponseBody
-	public void websockets(final AtmosphereResource event)
+	public void websockets(final AtmosphereResource event, @PathVariable("roomid") int roomid)
 			throws IOException {
 
 		logger.info("websockets GET");

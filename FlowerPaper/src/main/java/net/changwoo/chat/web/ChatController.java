@@ -1,17 +1,23 @@
 package net.changwoo.chat.web;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import net.changwoo.chat.atmosphere.AtmosphereUtils;
 import net.changwoo.chat.entity.Join;
 import net.changwoo.chat.entity.JsonResponse;
 import net.changwoo.chat.entity.Message;
 import net.changwoo.chat.entity.Room;
 import net.changwoo.chat.service.ChatServiceImpl;
 import net.changwoo.common.Common;
+import net.sf.json.JSONObject;
 
+import org.atmosphere.cpr.AtmosphereResource;
+import org.codehaus.jackson.JsonGenerationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +25,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Handles requests for the application home page.
@@ -33,16 +41,46 @@ public class ChatController {
 	
 	@Autowired
     private ChatServiceImpl chatService;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
+	@RequestMapping(value = "/send", method = RequestMethod.POST)
+	@ResponseBody
+	public void post(final AtmosphereResource event, @RequestBody String message)
+			throws IOException {
+
+		logger.info("websockets POST");
+		logger.info("Received message to broadcast: {}", message);
+
+		event.getBroadcaster().getAtmosphereResources().size();
+		event.getBroadcaster().broadcast(message);
+	}
+
+	/**
+	 * Responsible for suspending the {@link HttpServletResponse} and executing
+	 * a broadcasts periodically.
+	 *
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonGenerationException
+	 */
+	@RequestMapping(value = "/recevice", method = RequestMethod.GET)
+	@ResponseBody
+	public void websockets(final AtmosphereResource event)
+			throws IOException {
+
+		logger.info("websockets GET");
+		AtmosphereUtils.suspend(event);
+	}
 	
 	/*
 	 * test url
 	 * http://localhost:8080/FlowerPaper/chat/message/save?content=hihi&userid=34&roomid=4
 	 */
 	@RequestMapping(value = "/message/save", method = RequestMethod.POST)
-	public String saveMessage(Locale locale, @Valid Message message, BindingResult result, Model model) {
+	public String saveMessage(final AtmosphereResource event, Locale locale, @Valid Message message, BindingResult result, Model model) {
 		
 		JsonResponse res = new JsonResponse();
 		try{
@@ -60,6 +98,14 @@ public class ChatController {
 			res.setResult(e.getMessage());
 		}
 		model.addAttribute("res",res);
+		
+		logger.info("websockets POST");
+		logger.info("Received message to broadcast: {}", message);
+
+		JSONObject jsonObject = JSONObject.fromObject(res);
+		event.getBroadcaster().getAtmosphereResources().size();
+		event.getBroadcaster().broadcast(jsonObject);
+		
 		return "jsonView";
 	}
 	
@@ -85,6 +131,7 @@ public class ChatController {
 			res.setResult(e.getMessage());
 		}
 		model.addAttribute("res",res);
+		
 		return "jsonView";
 	}
 	

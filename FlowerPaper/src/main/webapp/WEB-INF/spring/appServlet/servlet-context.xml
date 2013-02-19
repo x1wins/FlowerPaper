@@ -5,7 +5,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
-    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
@@ -14,22 +14,19 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+<!-- 	<mvc:annotation-driven /> -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
 	<mvc:default-servlet-handler></mvc:default-servlet-handler>
-
-
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-<!-- 	<beans:bean -->
-<!-- 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-<!-- 		<beans:property name="prefix" value="/WEB-INF/views/" /> -->
-<!-- 		<beans:property name="suffix" value=".jsp" /> -->
-<!-- 		<beans:property name="contentType" value="text/html; charset=UTF-8"/> -->
-<!-- 	</beans:bean> -->
+	
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<beans:bean
+				class="org.springframework.mvc.samples.atmosphere.support.AtmosphereArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<context:component-scan base-package="net.changwoo" />
 
@@ -48,86 +45,92 @@
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 		<beans:property name="order" value="2" />
-		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
+		<beans:property name="contentType" value="text/html; charset=UTF-8" />
 	</beans:bean>
-	
+
 	<beans:bean
-        class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <beans:property name="order" value="1"></beans:property>
-        <beans:property name="mediaTypes">
-            <beans:map>
-                <beans:entry key="xml" value="application/xml" />
-                <beans:entry key="json" value="application/json" />
-                <beans:entry key="htm" value="text/html" />
-            </beans:map>
-        </beans:property>
-        <beans:property name="viewResolvers">
-            <beans:list>
-                <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
-                <beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-                    <beans:property name="viewClass"
-                        value="org.springframework.web.servlet.view.tiles2.TilesView" />
-                </beans:bean>
-                <beans:bean
-                    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-                    <beans:property name="prefix" value="/WEB-INF/views/" />
-                    <beans:property name="suffix" value=".jsp" />
-                </beans:bean>
-            </beans:list>
-        </beans:property>
-    </beans:bean>
- 
-<!--     tiles2 layout config -->
-<!--     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"> -->
-<!--         <property name="definitions"> -->
-<!--             <list> -->
-<!--                 <value>classpath:/tiles2/tiles*.xml</value> -->
-<!--             </list> -->
-<!--         </property> -->
-<!--     </bean> -->
- 
-    <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-    	<beans:property name="order" value="0"></beans:property>
-    </beans:bean>
-    
-    <!-- ajax view JSON rendering -->
-    <beans:bean name="lenient" class="net.sf.json.util.CycleDetectionStrategy$LenientCycleDetectionStrategy"/>
-    
-    <beans:bean name="jsonConfig" class="net.sf.json.JsonConfig">
-       <beans:property name="cycleDetectionStrategy" ref="lenient" />
-    </beans:bean>
-    
-    <beans:bean name="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" >
-       <beans:property name="jsonConfig" ref="jsonConfig" />
-    </beans:bean>
-    
-<!--     <beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/> -->
-<!--     <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" /> -->
-    <beans:bean id="xmlView"
-        class="org.springframework.web.servlet.view.xml.MarshallingView">
-        <beans:property name="marshaller">
-            <beans:bean class="org.springframework.oxm.xstream.XStreamMarshaller">
-                <beans:property name="autodetectAnnotations" value="true" />
-                <beans:property name="aliases">
-                     <beans:map>
-                        <beans:entry  key="user"  value="net.changwoo.x1wins.entity.User"/>
-                        <beans:entry  key="bbs"  value="net.changwoo.x1wins.entity.Bbs"/>
-                        <beans:entry  key="reply"  value="net.changwoo.x1wins.entity.Reply"/>
-                        <beans:entry  key="response"  value="net.changwoo.x1wins.entity.Response"/>
-                     </beans:map>
-                </beans:property>
-            </beans:bean>
-        </beans:property>
-    </beans:bean>
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<beans:property name="order" value="1"></beans:property>
+		<beans:property name="mediaTypes">
+			<beans:map>
+				<beans:entry key="xml" value="application/xml" />
+				<beans:entry key="json" value="application/json" />
+				<beans:entry key="htm" value="text/html" />
+			</beans:map>
+		</beans:property>
+		<beans:property name="viewResolvers">
+			<beans:list>
+				<beans:bean
+					class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+				<beans:bean
+					class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+					<beans:property name="viewClass"
+						value="org.springframework.web.servlet.view.tiles2.TilesView" />
+				</beans:bean>
+				<beans:bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<beans:property name="prefix" value="/WEB-INF/views/" />
+					<beans:property name="suffix" value=".jsp" />
+				</beans:bean>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 
-	
+	<!-- tiles2 layout config -->
+	<!-- <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"> -->
+	<!-- <property name="definitions"> -->
+	<!-- <list> -->
+	<!-- <value>classpath:/tiles2/tiles*.xml</value> -->
+	<!-- </list> -->
+	<!-- </property> -->
+	<!-- </bean> -->
+
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+
+	<!-- ajax view JSON rendering -->
+	<beans:bean name="lenient"
+		class="net.sf.json.util.CycleDetectionStrategy$LenientCycleDetectionStrategy" />
+
+	<beans:bean name="jsonConfig" class="net.sf.json.JsonConfig">
+		<beans:property name="cycleDetectionStrategy" ref="lenient" />
+	</beans:bean>
+
+	<beans:bean name="jsonView"
+		class="net.sf.json.spring.web.servlet.view.JsonView">
+		<beans:property name="jsonConfig" ref="jsonConfig" />
+	</beans:bean>
+
+	<!-- <beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/> -->
+	<!-- <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" 
+		/> -->
+	<beans:bean id="xmlView"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<beans:property name="marshaller">
+			<beans:bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				<beans:property name="autodetectAnnotations" value="true" />
+				<beans:property name="aliases">
+					<beans:map>
+						<beans:entry key="user" value="net.changwoo.x1wins.entity.User" />
+						<beans:entry key="bbs" value="net.changwoo.x1wins.entity.Bbs" />
+						<beans:entry key="reply" value="net.changwoo.x1wins.entity.Reply" />
+						<beans:entry key="response" value="net.changwoo.x1wins.entity.Response" />
+					</beans:map>
+				</beans:property>
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
 	<!-- Configure the multipart resolver -->
-<!--     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-<!--         one of the properties available; the maximum file size in bytes -->
-<!--         <beans:property name="maxUploadSize" value="100000"/> -->
-<!--     </beans:bean> -->
+	<!-- <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+	<!-- one of the properties available; the maximum file size in bytes -->
+	<!-- <beans:property name="maxUploadSize" value="100000"/> -->
+	<!-- </beans:bean> -->
 
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize">
 			<beans:value>10000000</beans:value>
 		</beans:property>
@@ -135,62 +138,37 @@
 
 	<!-- multi language -->
 	<beans:bean id="messageSource"
-	   class="org.springframework.context.support.ResourceBundleMessageSource">
-	   <beans:property name="basenames">
-	      <beans:list>
-	        <!-- properties파일의 이름을 등록한다.
-	                 등록되 있지 않을 시에 디폴트로 message.properties파일을 찾는다.-->
-<!-- 	         <beans:value>/WEB-INF/properties/message-user</beans:value> -->
-	         <beans:value>net.changwoo.x1wins.properties.message-user</beans:value>
-	      </beans:list>
-	   </beans:property>
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<!-- properties파일의 이름을 등록한다. 등록되 있지 않을 시에 디폴트로 message.properties파일을 
+					찾는다. -->
+				<!-- <beans:value>/WEB-INF/properties/message-user</beans:value> -->
+				<beans:value>net.changwoo.x1wins.properties.message-user
+				</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 
+	<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 
-<!-- 	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"> -->
-<!-- 		<beans:property name="defaultLocale" value="en" /> -->
-<!-- 	</beans:bean> -->
-	
-<!-- 	<beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> -->
-<!--          <beans:property name="paramName" value="ln" /> -->
-<!-- 	</beans:bean> -->
-	
-<!-- 	<beans:bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" > -->
-<!--        <beans:property name="interceptors"> -->
-<!--              <beans:list> -->
-<!--                   <beans:ref bean="localeChangeInterceptor" /> -->
-<!--              </beans:list> -->
-<!--        </beans:property> -->
-<!-- 	</beans:bean> -->
-	
-
-	<!-- multi language -->
-<!-- 	<bean id="messageSource" -->
-<!-- 		class="org.springframework.context.support.ResourceBundleMessageSource"> -->
-<!-- 		<property name="basenames"> -->
-<!-- 			<list> -->
-<!-- 				<value>messages.default -->
-<!-- 				</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
-	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
-	
 	<!-- 전체 인터셉터 -->
 	<mvc:interceptors>
-		<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<beans:bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<beans:property name="paramName" value="lang" />
 		</beans:bean>
-        <beans:bean class="net.changwoo.x1wins.interceptor.CurrentUrlInterceptor"/>
+		<beans:bean class="net.changwoo.x1wins.interceptor.CurrentUrlInterceptor" />
 	</mvc:interceptors>
-	
- 
-    <!-- 부분 인터셉터 -->
-<!--     <mvc:interceptors> -->
-<!--         <mvc:interceptor> -->
-<!--             <mvc:mapping path="/test/*/*"/> -->
-<!--             <bean class="net.changwoo.isanho.interceptor.LoginInterceptor"/> -->
-<!--         </mvc:interceptor> -->
-<!--     </mvc:interceptors> -->
+
+
+	<!-- 부분 인터셉터 -->
+	<!-- <mvc:interceptors> -->
+	<!-- <mvc:interceptor> -->
+	<!-- <mvc:mapping path="/test/*/*"/> -->
+	<!-- <bean class="net.changwoo.isanho.interceptor.LoginInterceptor"/> -->
+	<!-- </mvc:interceptor> -->
+	<!-- </mvc:interceptors> -->
 
 </beans:beans>

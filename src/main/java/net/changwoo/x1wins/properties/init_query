@@ -1,0 +1,2 @@
+insert into config (bbsname,userid, listTypeNum) values('notice','admin',1);
+insert into config (bbsname,userid, listTypeNum) values('free','admin',2);

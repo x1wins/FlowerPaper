@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+
+/.settings
+/target
+.classpath
+.project
+.springBeans
+/.apt_generated/
+/bin/

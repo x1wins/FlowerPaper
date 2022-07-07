@@ -128,7 +128,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<version>3.2.4.RELEASE</version>
 			<!-- <version>${org.springframework-version}</version> -->
 		</dependency>
 		<dependency>
